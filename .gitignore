@@ -1,23 +1,41 @@
-# Accounting and office documents
-*.pdf
-*.xlsx
-*.xls
-*.doc
-*.docx
-*.dt
-*.1CD
+# Accounting documents and tabular exports (case-insensitive extensions)
+*.[pP][dD][fF]
+*.[xX][lL][sS]
+*.[xX][lL][sS][xX]
+*.[dD][oO][cC]
+*.[dD][oO][cC][xX]
+*.[cC][sS][vV]
 
-# Credentials and certificates
-*.key
-*.pfx
-*.p12
+# 1C databases, backups, archives, certificates and private keys
+*.[dD][tT]
+*.[1][cC][dD]
+*.[bB][aA][kK]
+*.[bB][aA][cC][kK][uU][pP]
+*.[kK][eE][yY]
+*.[pP][eE][mM]
+*.[pP][fF][xX]
+*.[pP][1][2]
+*.[zZ][iI][pP]
+*.[rR][aA][rR]
+*.[7][zZ]
+
+# Local environment files; keep only the explicitly safe template
 .env
 .env.*
 !.env.example
 
-# Sensitive local data
-/private/
-/secrets/
-/backups/
-/exports/
-/data/real/
+# Sensitive directories at any depth
+**/private/
+**/secrets/
+**/backups/
+**/exports/
+**/data/real/
+
+# Common local and temporary files
+**/.DS_Store
+**/Thumbs.db
+*.tmp
+*.temp
+*.swp
+*.swo
+*~

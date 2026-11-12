@@ -1,0 +1,31 @@
+name: Publication security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publication-security:
+    name: publication-security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Require PowerShell 7
+        shell: pwsh
+        run: |
+          if ($PSVersionTable.PSVersion.Major -ne 7) { throw 'PowerShell 7 is required.' }
+      - name: Scan tracked tree
+        shell: pwsh
+        run: pwsh -NoProfile -File DEV/tools/Test-Publication.ps1 -Mode Tracked
+      - name: Run security tests
+        shell: pwsh
+        run: pwsh -NoProfile -File tests/security/Invoke-SecurityTests.ps1
