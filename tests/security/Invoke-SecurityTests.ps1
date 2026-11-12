@@ -200,8 +200,10 @@ catch {
 finally {
     if (Test-Path -LiteralPath $script:Sandbox) {
         $resolvedSandbox = [System.IO.Path]::GetFullPath((Resolve-Path -LiteralPath $script:Sandbox).Path)
-        $resolvedBase = [System.IO.Path]::GetFullPath($script:TempBase).TrimEnd('\') + '\'
-        if (-not $resolvedSandbox.StartsWith($resolvedBase, [System.StringComparison]::OrdinalIgnoreCase) -or
+        $separator = [System.IO.Path]::DirectorySeparatorChar
+        $resolvedBase = [System.IO.Path]::GetFullPath($script:TempBase).TrimEnd([char[]]@('\','/')) + $separator
+        $pathComparison = if ($separator -eq '/') { [System.StringComparison]::Ordinal } else { [System.StringComparison]::OrdinalIgnoreCase }
+        if (-not $resolvedSandbox.StartsWith($resolvedBase, $pathComparison) -or
             [System.IO.Path]::GetFileName($resolvedSandbox) -notmatch '^\.elsi-security-tests-[0-9a-f]{32}$') {
             [Console]::Error.WriteLine('FAIL test-cleanup rule=unsafe-temp-path count=1')
             exit 3
