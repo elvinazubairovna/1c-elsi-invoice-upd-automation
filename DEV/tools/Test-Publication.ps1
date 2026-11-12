@@ -132,6 +132,11 @@ function Test-PathPolicy {
         Write-Failure -Rule 'unsupported-object' -Path $path
         return
     }
+    $basename = [System.IO.Path]::GetFileName($path)
+    if ($basename -match '(?i)^\.env(?:\..*)?$' -and $basename -ine '.env.example') {
+        Write-Failure -Rule 'blocked-env-file' -Path $path
+        return
+    }
     $extension = [System.IO.Path]::GetExtension($path).ToLowerInvariant()
     $blockedExtensions = @('.pdf','.xls','.xlsx','.doc','.docx','.csv','.dt','.1cd','.bak','.backup','.key','.pem','.pfx','.p12','.zip','.rar','.7z')
     if ($blockedExtensions -contains $extension) {

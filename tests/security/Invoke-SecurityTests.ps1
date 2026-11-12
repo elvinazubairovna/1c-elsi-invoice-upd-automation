@@ -111,6 +111,39 @@ try {
     Assert-Result 'safe-markdown' 0 (Invoke-Check -Mode Index)
 
     New-TestRepo
+    Write-TestFile -Path '.env' -Content 'SYNTHETIC_VALUE=placeholder'
+    Invoke-Git -Arguments @('add','-f','.env') | Out-Null
+    Assert-Result 'forced-env-file' 1 (Invoke-Check -Mode Index)
+
+    New-TestRepo
+    Write-TestFile -Path 'nested/.ENV.production' -Content 'SYNTHETIC_VALUE=placeholder'
+    Invoke-Git -Arguments @('add','-f','nested/.ENV.production') | Out-Null
+    Invoke-Git -Arguments @('commit','-q','-m','Synthetic environment fixture') | Out-Null
+    Assert-Result 'tracked-nested-env-file' 1 (Invoke-Check -Mode Tracked)
+
+    New-TestRepo
+    Write-TestFile -Path 'README.md' -Content 'Synthetic base revision.'
+    Invoke-Git -Arguments @('add','README.md') | Out-Null
+    Invoke-Git -Arguments @('commit','-q','-m','Synthetic base') | Out-Null
+    $envBaseSha = Invoke-Git -Arguments @('rev-parse','HEAD')
+    Write-TestFile -Path '.env.example.local' -Content 'SYNTHETIC_VALUE=placeholder'
+    Invoke-Git -Arguments @('add','-f','.env.example.local') | Out-Null
+    Invoke-Git -Arguments @('commit','-q','-m','Synthetic environment variant') | Out-Null
+    $envHead = Invoke-Git -Arguments @('rev-parse','HEAD')
+    $envInput = "refs/heads/main $envHead refs/heads/main $envBaseSha`n"
+    Assert-Result 'outgoing-env-example-variant' 1 (Invoke-Check -Mode Outgoing -InputText $envInput)
+
+    New-TestRepo
+    Write-TestFile -Path '.env.example' -Content 'SYNTHETIC_VALUE=placeholder'
+    Invoke-Git -Arguments @('add','.env.example') | Out-Null
+    Assert-Result 'safe-env-example' 0 (Invoke-Check -Mode Index)
+
+    New-TestRepo
+    Write-TestFile -Path '.ENV.EXAMPLE' -Content 'SYNTHETIC_VALUE=placeholder'
+    Invoke-Git -Arguments @('add','-f','.ENV.EXAMPLE') | Out-Null
+    Assert-Result 'safe-env-example-case-insensitive' 0 (Invoke-Check -Mode Index)
+
+    New-TestRepo
     foreach ($extension in @('pdf','xlsx','csv')) { Write-TestFile -Path "fixture.$extension" }
     Invoke-Git -Arguments @('add','-f','fixture.pdf','fixture.xlsx','fixture.csv') | Out-Null
     Assert-Result 'forced-document-extensions' 1 (Invoke-Check -Mode Index)
