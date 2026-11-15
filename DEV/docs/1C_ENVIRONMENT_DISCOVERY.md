@@ -22,6 +22,7 @@
 | E09 | Официальная инструкция 1С | [«Как установить расширение, дополнительный отчет или обработку в приложение?»](https://www.1cfresh.com/articles/app_addprocess) | 2026-11-15; страница опубликована 2016-09-30 | Описывает установку/удаление владельцем абонента в приложении. Никаких действий в приложении в этой задаче не производилось. |
 | E10 | Официальная документация 1С:ИТС | [«Возможности подсистемы Фреш для интеграции с другими сервисами»](https://its.1c.ru/db/content/fresh/src/index.html) | 2026-11-15; страница изменена 2026-06-24 | Публично доступен обзор нескольких интеграционных механизмов. Часть связанной подробной документации может требовать доступа; она не изучалась и помечена `UNVERIFIED`. |
 | E11 | Официальный каталог 1С:Фреш | [«1С:Магазин расширений»](https://dev.1cfresh.com/) | 2026-11-15 | Каталог описывает существующие расширения и аудит. Коммерческая запись/доступность продукта не подтверждает возможность разработки, публикации или установки пользовательского расширения в данном tenant. |
+| E12 | Owner-reported facts in Task 005 | `DEV/tasks/005_LOCAL_1C_CAPABILITY_ASSESSMENT.md` | 2026-11-15 | Владелец сообщил текущую локальную файловую среду и безопасные версии продукта/платформы. Статус только `OWNER_REPORTED`, независимо не проверено. |
 
 ## Environment facts and unknowns
 
@@ -29,34 +30,36 @@
 
 - В репозитории заданы общие цели автоматизации счетов и УПД.
 - Архитектура и способ интеграции с 1С ранее не утверждены; бизнес-функции не реализованы (E01).
-- Предыдущее задание указывает, что 1С:Фреш ранее обсуждалась владельцем, но это только `OWNER_STATED_BUT_NOT_INDEPENDENTLY_VERIFIED`, не описание фактического размещения (E01).
+- Task 004 фиксировала ранее обсуждавшийся владельцем lead 1С:Фреш как `OWNER_STATED_BUT_NOT_INDEPENDENTLY_VERIFIED`. Более поздние безопасные сведения владельца в Task 005 сообщают локальный файловый вариант; это обновлённое `OWNER_REPORTED` значение, а не независимая проверка (E12).
+
+### OWNER_REPORTED (Task 005, не проверено Codex)
+
+- «Бухгалтерия предприятия», редакция 3.0; версия конфигурации `3.0.208.14`.
+- Платформа «1С:Предприятие 8.5», версия `8.5.1.1343`.
+- Локальная файловая информационная база, не Fresh; приложение запускается в тонком клиенте.
+- Владелец сообщил о кнопках «1С:Предприятие»/«Конфигуратор» в окне запуска и отсутствии расширений от проверенных поставщиков в окне «О программе».
+- Эти сведения не подтверждены Codex. Кнопка не доказывает права/успешный запуск; отсутствие расширений от проверенных поставщиков не доказывает отсутствие иных обработок. Скриншоты/пути/лицензии не читались.
 
 ### CONFIRMED_FROM_LOCAL_SAFE_INDICATORS
 
-- Операционная система семейства Windows; PowerShell 7.6.5 и Git 2.53.0 доступны.
-- Поиск только команд `1cv8`, `1cv8c`, `ibcmd`, `designer` через обычный PATH не нашёл их (E02). Не сканировались диски, реестр, службы, профили или другие проекты.
-- Отсутствие этих команд не доказывает отсутствие GUI-клиента, локальной базы либо облачной подписки.
+- Для рабочей среды Windows, PowerShell 7.6.5 и Git 2.53.0 были доступны при предыдущей задаче.
+- Узкий поиск команд `1cv8`, `1cv8c`, `ibcmd`, `designer` по PATH ранее не обнаружил эти команды (E02); текущая задача повторно не исследовала локальную систему.
+- Отсутствие команд не доказывает отсутствие GUI-клиента/базы и не говорит о правах или пригодности для автоматизации.
 
 ### CONFIRMED_FROM_OFFICIAL_PUBLIC_DOCS
 
-- Официальная документация в общем виде описывает OData в 1С:Фреш для чтения и записи данных. В описанном вендором сценарии набор доступных объектов настраивается; настройка REST-сервиса требует административной роли «Полные права», которую страница для Fresh связывает с владельцем абонента. Для запросов описаны Basic-аутентификация и пользователь с административными правами или ролью `УдаленныйДоступOData`. Вендор рекомендует ограничивать доступ только используемыми видами объектов; действия OData подчиняются обычным проверкам прав и обработчикам событий. В Fresh отмечено отдельное ограничение на заголовок `1C_OData-DataLoadMode: true` (E05).
-- Для публикации расширений/дополнительных отчётов и обработок публичные страницы описывают авторизацию разработчика, права владельца абонента, проверку/аудит вендором, выдачу доступа и установку владельцем. Сопровождение после обновлений — отдельная операционная обязанность (E04, E06–E09).
-- Это факты о публично документированных механизмах, но не подтверждение продукта, версии, подписки, доступов или настройки конкретной среды.
-
-### OWNER_STATED_BUT_NOT_INDEPENDENTLY_VERIFIED
-
-- 1С:Фреш — ранее обсуждавшаяся возможная среда. Она не подтверждена как фактический продукт или тип размещения (E01).
+- Официальные страницы описывают Fresh OData для чтения и записи, его объектные/пользовательские ограничения и обработку прав. Это относится к описанному Fresh сценарию, а не подтверждает локальную базу владельца (E05).
+- Публичные страницы Fresh описывают авторизацию, аудит, доступ, установку и сопровождение обработок/расширений в сервисе. Это не доказывает права/условия локальной среды (E04, E06–E09).
+- Эти публикации описывают общие механизмы и не подтверждают индивидуальную совместимость, роль или настройку базы.
 
 ### UNKNOWN / OWNER_CONFIRMATION_REQUIRED
 
-- Точное название продукта/редакции 1С:Бухгалтерия и версия конфигурации/платформы.
-- Размещение: 1С:Фреш, другая облачная площадка или локальная информационная база.
-- Общая категория роли пользователя (например, владелец абонента или обычный пользователь); конкретные учётные данные не нужны.
-- Поддерживает ли обслуживающая организация разработку/публикацию проверенных дополнений и применима ли к аккаунту процедура авторизации.
-- Имеется ли отдельная тестовая информационная база только с синтетическими данными.
-- Известно ли владельцу без дополнительного входа, что в его среде уже доступны соответствующие штатные интеграции/импорт-экспорт или настройки OData. Не требуется проводить исследовательский tour по настройкам.
-- Доступность OData, состав разрешённых объектов, разрешённые операции, сетевые ограничения, применимые лимиты и конкретные права.
-
+- Есть ли безопасная отдельная тестовая база только с синтетическими данными.
+- Может ли владелец/ответственный специалист подтверждённо создавать и запускать внешние обработки в такой тестовой базе; права рабочей базы не проверять.
+- Каковы действительные права пользователя, состояние безопасного режима и процессы сопровождения.
+- Поддерживается ли пара конфигурации `3.0.208.14` и платформы `8.5.1.1343` для нужного вида `.epf`/`.cfe`; точная совместимость не выводится из названия/номеров или кнопки запуска.
+- Какие штатные формы, интерфейсы, обмены/импорт-экспорт или разрешённые объекты реально доступны; настройки приложения не исследовались.
+- Любые OData/API сетевые публикации, авторизация, разрешённые объекты/операции и сетевые ограничения.
 ### NOT_PERMITTED_TO_PROBE
 
 - Реальный tenant, приложение, пользовательские роли/учётные записи, данные базы, URL с идентификаторами, сетевые/API endpoints, конфигурация OData и настройки приложения.
@@ -67,10 +70,10 @@
 
 | Option | Vendor reference | Publicly documented capability | Preconditions / restrictions | Evidence for THIS tenant | Unknowns | Security / operational concerns |
 |---|---|---|---|---|---|---|
-| A. Built-in document functionality; manual or semi-manual work | E01, E03 | Project requirements name invoice/UPD as goal; vendor lists accounting application and describes standard application use. Actual document forms are not inspected. | Correct product/configuration, user role, manual review and business procedure. | Нет подтверждения продукта, редакции, экранов или доступных операций. | Какие штатные документы доступны и как они создаются/подтверждаются. | Human review, duplicate prevention, access control, correctness of accounting fields. No workflow recommendation is made. |
-| B. Additional processing / configuration extension in 1С:Фреш | E04, E06–E09 | Vendor documents extensions/reports/processings, with provider authorization, provider audit, owner-controlled access and installation. Additional processing can change data. | Fresh deployment and compatible configuration; authorized developer in servicing organization; rights/owner relationship; vendor review and publication; owner install; ongoing update support. | `UNVERIFIED`; no environment, provider, role, or eligibility confirmation. | Whether deployment is Fresh, service organization supports it, relevant approvals/rights and version compatibility. | Provider audit is a gate, not proof of fit or safety for this use; code may mutate accounting data; compatibility and maintenance. |
-| C. Standard OData interface | E05; overview E03/E04 | Fresh documentation describes HTTP OData data reading/writing; published endpoint, object scope and user permissions govern access. | For documented Fresh: OData publication; object allowlist configured by an authorized owner/admin; dedicated user/role and authentication; supported operations and app permissions. Not all OData headers/features are supported. | `UNVERIFIED`; tenant type, enabled objects, endpoint, role and eligibility unknown. | Whether Fresh and the relevant OData configuration/rights exist; which objects/operations are permitted; account/network constraints. | Potentially mutating operations include create/update/delete and posting actions; least privilege and secret handling required; no credentials/endpoints collected or tested. |
-| D. Local client / local information-base automation, only if local deployment is confirmed | E02; generic repository requirements E01 | No deployment-specific local mechanism established by this inventory. No 1C CLI command was found in PATH. | A local deployment, supported interface, suitable rights and explicit approved design would first need confirmation. | No local CLI discoverable; local database itself `UNKNOWN`. | Product, local client/server topology, interfaces, version and role. | Local automation can affect financial records; isolation, backups, auditability and human approval would require later design. |
+| A. Built-in document functionality; manual or semi-manual work | E01, E03 | Project requirements name invoice/UPD as goal; vendor lists accounting application and describes standard application use. Actual document forms are not inspected. | Correct product/configuration, user role, manual review and business procedure. | Владелец сообщил продукт и редакцию (E12); фактические формы и доступные операции не проверялись. | Какие штатные документы доступны и как они создаются/подтверждаются. | Human review, duplicate prevention, access control, correctness of accounting fields. No workflow recommendation is made. |
+| B. Additional processing / configuration extension in 1С:Фреш | E04, E06–E09 | Vendor describes these mechanisms and authorization/audit process for Fresh. Additional processing can change data. | Fresh deployment, authorized developer, rights/owner relationship, provider review/publication and owner installation. | Owner now reports local file deployment, not Fresh (`OWNER_REPORTED`, E12); Fresh-specific path is not established for this deployment. | Whether owner report is current/correct; applicable local `.epf`/`.cfe` rights and compatibility remain separate unknowns. | Audit does not prove fit for local use; additions may mutate data; update compatibility and maintenance. |
+| C. Standard OData interface | E05; overview E03/E04 | Fresh documentation describes HTTP OData read/write; object scope and user permissions govern it. | For the Fresh mechanism, publication/configuration, limited object set, appropriate account role and authentication are prerequisites. Do not transfer these conditions to local deployment. | Owner reports a local file base rather than Fresh; no local OData availability/publication is established. | Whether any separately supported local interface is required, enabled and permitted. | Mutating operations can change accounting data; limit rights and avoid secrets. No endpoint or credentials were collected/tested. |
+| D. Local client / local information-base automation | E02, E12; generic requirements E01 | No deployment-specific local mechanism established. No 1C CLI command was found in PATH in the earlier narrow check. | Owner reports a local file base and thin client; this remains `OWNER_REPORTED`, not independently verified. A supported interface, suitable rights and explicit approved design are still required. | Local file deployment reported, not verified; no commands discoverable in PATH previously. | Product/configuration compatibility, user privileges, interfaces, test-base existence and update support. | Local automation can affect financial records; do not open/copy/backup the working base; isolation, recovery and review require separate design. |
 | E. External automation or import/export | E03, E05, E10 | Public docs describe data exchange/OData and a Fresh integration overview; no particular external tool, import format, endpoint, or entitlement is established. | A vendor-supported mechanism, format, availability, permission and safe test environment must be confirmed for the deployment. | `UNVERIFIED`. | Whether any relevant import/export or external interface exists and may be used. | Files/exports may contain sensitive data; transport, credentials, idempotency and error recovery require explicit future review. |
 
 These rows are comparison categories only. They do not rank choices or grant permission to connect or modify data.
@@ -84,19 +87,16 @@ These rows are comparison categories only. They do not rank choices or grant per
 
 ## Owner confirmation checklist
 
-Please provide text-only, non-sensitive answers later through the project owner/architect:
+Обновление Task 005 уже содержит безопасные `OWNER_REPORTED` продукт/редакцию/версии и локальный файловый вариант. Если позже потребуется уточнение — только текстом и без идентификаторов. Остаются три кратких вопроса:
 
-1. Product and edition/version exactly as shown in the application's About page; omit tenant/account identifiers.
-2. Deployment category: 1С:Фреш, another cloud host, or local information base.
-3. Platform and configuration version numbers only; no server or database names.
-4. Generic access role category relevant to integrations/add-ons; no username, login or credential.
-5. Whether the servicing organization supports audited custom add-ons and whether the owner knows the applicable authorization process.
-6. Whether a separate test information base with synthetic data exists. Do not export or provide a real database.
-7. If already known, whether relevant built-in integration/import-export or OData access is available; no credentials, URLs, screenshots or risky settings tour.
+1. Есть ли отдельно пустая/синтетическая тестовая база без копий реальных счетов или контрагентов? `UNKNOWN` до ответа.
+2. Может ли владелец/ответственный специалист отдельно подтвердить возможность создавать и использовать `.epf` именно на тестовой базе, не проверяя права в рабочей базе? `UNKNOWN` до ответа.
+3. Предполагается ли будущая автоматизация в той же локальной базе либо в отдельном согласованном контуре? `UNKNOWN` до ответа.
 
+Не просить пароли, права администратора, имена/пути базы, URL, скриншоты, лицензионные сведения, файлы выгрузки или запуск Конфигуратора.
 ## Decision gate for architect
 
-Before any architecture or prototype task, ChatGPT needs the owner-confirmed product/deployment/version, generic privileges, provider support/authorization status, applicable interface availability/restrictions, and whether a synthetic-only test base exists. Separately approved business requirements and safety/approval controls would still be needed. Until then it is impossible to determine whether an extension, OData, local automation, or import/export is eligible; no architecture can be selected from these public materials alone.
+Before any architecture or prototype task, ChatGPT needs the owner to confirm that the reported product/deployment/version are current, generic test-base privileges, provider support/authorization status, applicable interface availability/restrictions, and whether a synthetic-only test base exists. Separately approved business requirements and safety/approval controls would still be needed. Until then it is impossible to determine whether an extension, OData, local automation, or import/export is eligible; no architecture can be selected from these public materials alone.
 
 ## Not implemented and not verified
 

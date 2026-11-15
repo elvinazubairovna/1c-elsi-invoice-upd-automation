@@ -4,9 +4,8 @@
 
 ## Verified baseline
 
-- Последний проверенный опубликованный baseline до Task 004: `main` на `437226191c6e467f4c43a7134d5431c834709be3` (Task 003); локальный `HEAD` совпал с `origin/main` при preflight Task 004.
-- Для Task 003 локальные проверки и публикация зафиксированы в отчёте 003; commit-specific CI там отмечен как `UNVERIFIED`. Не переносить этот статус на другие коммиты.
-
+- Последний проверенный опубликованный baseline до Task 005: `main` на `70e754b8ce61258de370443b0057a6bf2369fc18` (Task 004); local/remote совпали при preflight Task 005.
+- В отчёте Task 004 commit-specific CI отмечен `UNVERIFIED`; не считать его успешным без отдельного свидетельства.
 ## Implemented and verified
 
 - **Project skeleton and initial documentation:** подтверждены [отчётом 001](../reports/001_INIT_PROJECT.md) и опубликованным Task 001.
@@ -43,8 +42,13 @@
 - [Task 002](../tasks/002_SECURITY_AND_WORKFLOW.md), [report 002](../reports/002_SECURITY_AND_WORKFLOW.md), [successful Task 002 Actions run](https://github.com/elvinazubairovna/1c-elsi-invoice-upd-automation/actions/runs/43248306231).
 - [Task 003](../tasks/003_DOCUMENTATION_GOVERNANCE.md), [report 003](../reports/003_DOCUMENTATION_GOVERNANCE.md); exact commands and results are recorded there.
 
-## Task 004 — environment discovery
+## Task 004 — environment discovery (retrospective)
 
 - Публичное исследование и локальная read-only инвентаризация: [dossier 004](1C_ENVIRONMENT_DISCOVERY.md) и [report 004](../reports/004_1C_ENVIRONMENT_DISCOVERY.md). Общие механизмы вендора изучены; tenant-specific eligibility `UNKNOWN / OWNER_CONFIRMATION_REQUIRED`.
 - Implementation status: discovery documentation only. Architecture remains `NOT_APPROVED`; invoice/UPD generation and every 1C integration remain `NOT_IMPLEMENTED`. No tenant access or live verification occurred.
-- Task 003 published baseline: `main` at `437226191c6e467f4c43a7134d5431c834709be3`; associated commit status was not reported by available GitHub status endpoint in prior task report.
+- Published Task 004 commit: `main` at `70e754b8ce61258de370443b0057a6bf2369fc18`; CI status was `UNVERIFIED` in report 004.
+
+## Task 005 — local capability assessment
+
+- Owner-reported only: «Бухгалтерия предприятия» 3.0, configuration `3.0.208.14`, platform `8.5.1.1343`, local file information base, thin client. These details were not independently verified; see [assessment](LOCAL_1C_CAPABILITY_ASSESSMENT.md) and [report 005](../reports/005_LOCAL_1C_CAPABILITY_ASSESSMENT.md).
+- This task adds documentation only. Architecture remains `NOT_APPROVED`; invoices/UPD generation and all 1C integration remain `NOT_IMPLEMENTED`. No production database access or 1C session occurred.
