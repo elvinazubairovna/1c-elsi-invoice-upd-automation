@@ -4,8 +4,8 @@
 
 ## Verified baseline
 
-- Последний проверенный опубликованный baseline перед задачей 003: `main` на `3221b386398bb65fbce005eef0d7e3cb20fe81f5` (Task 002). Удалённый `origin/main` совпадал; соответствующий GitHub Actions run завершился `success`.
-- Документация и `.env` path guard задачи 003 проверяются и публикуются в одном изменении. SHA содержащего этот документ коммита здесь не указывается; итоговый remote HEAD передаётся отдельно владельцу.
+- Последний проверенный опубликованный baseline до Task 004: `main` на `437226191c6e467f4c43a7134d5431c834709be3` (Task 003); локальный `HEAD` совпал с `origin/main` при preflight Task 004.
+- Для Task 003 локальные проверки и публикация зафиксированы в отчёте 003; commit-specific CI там отмечен как `UNVERIFIED`. Не переносить этот статус на другие коммиты.
 
 ## Implemented and verified
 
@@ -42,3 +42,9 @@
 - [Task 001](../tasks/001_INIT_PROJECT.md), [report 001](../reports/001_INIT_PROJECT.md).
 - [Task 002](../tasks/002_SECURITY_AND_WORKFLOW.md), [report 002](../reports/002_SECURITY_AND_WORKFLOW.md), [successful Task 002 Actions run](https://github.com/elvinazubairovna/1c-elsi-invoice-upd-automation/actions/runs/43248306231).
 - [Task 003](../tasks/003_DOCUMENTATION_GOVERNANCE.md), [report 003](../reports/003_DOCUMENTATION_GOVERNANCE.md); exact commands and results are recorded there.
+
+## Task 004 — environment discovery
+
+- Публичное исследование и локальная read-only инвентаризация: [dossier 004](1C_ENVIRONMENT_DISCOVERY.md) и [report 004](../reports/004_1C_ENVIRONMENT_DISCOVERY.md). Общие механизмы вендора изучены; tenant-specific eligibility `UNKNOWN / OWNER_CONFIRMATION_REQUIRED`.
+- Implementation status: discovery documentation only. Architecture remains `NOT_APPROVED`; invoice/UPD generation and every 1C integration remain `NOT_IMPLEMENTED`. No tenant access or live verification occurred.
+- Task 003 published baseline: `main` at `437226191c6e467f4c43a7134d5431c834709be3`; associated commit status was not reported by available GitHub status endpoint in prior task report.
