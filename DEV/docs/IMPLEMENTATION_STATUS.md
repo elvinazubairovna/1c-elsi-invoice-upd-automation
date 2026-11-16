@@ -4,8 +4,9 @@
 
 ## Verified baseline
 
-- Последний проверенный опубликованный baseline до Task 005: `main` на `70e754b8ce61258de370443b0057a6bf2369fc18` (Task 004); local/remote совпали при preflight Task 005.
-- В отчёте Task 004 commit-specific CI отмечен `UNVERIFIED`; не считать его успешным без отдельного свидетельства.
+- Последний проверенный опубликованный baseline до Task 006: `main` на `b7c1637ccb67dab6026548166fa3824f9d9cd92c` (Task 005); local/remote совпали при preflight Task 006.
+- В отчёте Task 005 CI для итогового SHA подтверждён успешным Actions run; CI для новых commits проверяется отдельно.
+
 ## Implemented and verified
 
 - **Project skeleton and initial documentation:** подтверждены [отчётом 001](../reports/001_INIT_PROJECT.md) и опубликованным Task 001.
@@ -52,3 +53,9 @@
 
 - Owner-reported only: «Бухгалтерия предприятия» 3.0, configuration `3.0.208.14`, platform `8.5.1.1343`, local file information base, thin client. These details were not independently verified; see [assessment](LOCAL_1C_CAPABILITY_ASSESSMENT.md) and [report 005](../reports/005_LOCAL_1C_CAPABILITY_ASSESSMENT.md).
 - This task adds documentation only. Architecture remains `NOT_APPROVED`; invoices/UPD generation and all 1C integration remain `NOT_IMPLEMENTED`. No production database access or 1C session occurred.
+
+## Task 006 — test environment safety baseline
+
+- Владелец сообщает о создании и ручном запуске отдельной TEST-базы и сохранении синтетической организации (`OWNER_REPORTED`); до её справочника ранее существовали записи неизвестного происхождения. См. [safety baseline](TEST_ENVIRONMENT_SAFETY.md) и [report 006](../reports/006_TEST_ENVIRONMENT_SAFETY_BASELINE.md).
+- Codex не открывал TEST или PRODUCTION. Права, полная синтетичность, отсутствие нежелательных интеграций и изоляция не проверены. Резервная копия и восстановление `RESTORE_UNVERIFIED`; доступ и `.epf` `NOT_ATTEMPTED`.
+- Продуктовая реализация не изменилась: архитектура `NOT_APPROVED`, генерация счетов/УПД и интеграция `NOT_IMPLEMENTED`; live tests не разрешены.
