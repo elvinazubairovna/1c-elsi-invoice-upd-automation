@@ -59,3 +59,8 @@
 - Владелец сообщает о создании и ручном запуске отдельной TEST-базы и сохранении синтетической организации (`OWNER_REPORTED`); до её справочника ранее существовали записи неизвестного происхождения. См. [safety baseline](TEST_ENVIRONMENT_SAFETY.md) и [report 006](../reports/006_TEST_ENVIRONMENT_SAFETY_BASELINE.md).
 - Codex не открывал TEST или PRODUCTION. Права, полная синтетичность, отсутствие нежелательных интеграций и изоляция не проверены. Резервная копия и восстановление `RESTORE_UNVERIFIED`; доступ и `.epf` `NOT_ATTEMPTED`.
 - Продуктовая реализация не изменилась: архитектура `NOT_APPROVED`, генерация счетов/УПД и интеграция `NOT_IMPLEMENTED`; live tests не разрешены.
+
+## Task 007 — test backup and restore
+
+- Статический preflight остановлен на эксклюзивной read-only проверке из-за `TEST_SESSION_NOT_CONFIRMED_CLOSED`; работу сеансов и процессов не исследовали.
+- Файловые копия и восстановление `NOT_ATTEMPTED`; `APPLICATION_RESTORE=NOT_ATTEMPTED`; `RESTORE_UNVERIFIED`. Архитектура `NOT_APPROVED`, продуктовая реализация `NOT_IMPLEMENTED`. См. [report 007](../reports/007_TEST_BACKUP_AND_RESTORE.md).

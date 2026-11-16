@@ -2,6 +2,12 @@
 
 Это журнал фактически выполненных задач, а не план будущих релизов. Исторические записи помечены ретроспективами и основаны на опубликованных отчётах.
 
+## 2026-11-16 — 007_TEST_BACKUP_AND_RESTORE — blocked preflight
+
+- Локальный offline preflight точного TEST-кандидата остановился: `TEST_SESSION_NOT_CONFIRMED_CLOSED` при попытке эксклюзивного read-only доступа.
+- Копия и восстановление не выполнялись; production и содержимое базы не открывались. Документирован точный stop condition и необходимость повторного допуска отдельным заданием после закрытия владельцем сессий TEST.
+- Подробности и сверка документов — в [отчёте 007](../reports/007_TEST_BACKUP_AND_RESTORE.md). `FILE_LEVEL_BACKUP=NOT_ATTEMPTED`, `FILE_LEVEL_RESTORE=NOT_ATTEMPTED`, `RESTORE_UNVERIFIED`.
+
 ## 2026-11-16 — 006_TEST_ENVIRONMENT_SAFETY_BASELINE — documentation only
 
 - Добавлен канонический safety baseline с разделением PRODUCTION / TEST / PUBLIC GIT, readiness-статусами, stop conditions и будущей процедурой допуска.
