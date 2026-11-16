@@ -2,6 +2,12 @@
 
 Это журнал фактически выполненных задач, а не план будущих релизов. Исторические записи помечены ретроспективами и основаны на опубликованных отчётах.
 
+## 2026-11-16 — 011_OFFLINE_TEST_BACKUP_RESTORE — stopped at P2
+
+- Узкое offline-only исключение применено; P0 проверки прошли, P1 baseline рассчитан в памяти. P2 завершился с `FAILURE_CATEGORY=UNCLASSIFIED`.
+- Backup target остался `UNVERIFIED` и не исследовался/не очищался; restore не создавался. P3–P8 не выполнялись; интеграции остаются `UNVERIFIED` для application-level операций.
+- Факты, ограничения и сверка документации: [report 011](../reports/011_OFFLINE_TEST_BACKUP_RESTORE.md). Архитектура `NOT_APPROVED`, продукт `NOT_IMPLEMENTED`.
+
 ## 2026-11-16 — 010_INSTRUMENTED_TEST_BACKUP_RESTORE — blocked at P0
 
 - Свежий read-only preflight прошёл проверки точной TEST boundary, metadata stability, exclusive idle check, отсутствия новых target names и capacity.

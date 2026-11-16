@@ -82,3 +82,9 @@
 - Fresh P0 checks passed for the exact TEST boundary, metadata stability, exclusive read-only idle check, absent new target names and capacity. The overall preflight was `BLOCKED` because integration/exchange risk remains `UNVERIFIED`; policy does not allow assuming it away or inspecting prohibited settings/processes.
 - No source digests, destination directories, backup or restored copy were created. `LAST_COMPLETED_PHASE=NONE`; `FAILED_PHASE=P0_PREFLIGHT` (safety gate, no runtime exception); file-level backup/restore and final source validation remain `NOT_ATTEMPTED`. See [report 010](../reports/010_INSTRUMENTED_TEST_BACKUP_RESTORE.md).
 - Product, architecture and readiness categories did not change: architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`, integration risk `UNVERIFIED`, restore `UNVERIFIED`.
+
+## Task 011 — offline TEST backup and restore
+
+- The task-specific offline-only exception was applied; integrations remain `UNVERIFIED` and no 1C application operation was authorized. Fresh P0 boundary, source metadata/stability, exclusive idle, target absence and capacity checks passed. P1 computed source digests in memory.
+- P2 failed with `FAILURE_CATEGORY=UNCLASSIFIED`. The backup target status is `UNVERIFIED`; it was not inspected or cleaned. Restore target was not created; P3–P8 were not attempted. `FILE_LEVEL_BACKUP=FAIL`, `FILE_LEVEL_RESTORE=NOT_ATTEMPTED`, `SOURCE_FINAL=NOT_ATTEMPTED`; see [report 011](../reports/011_OFFLINE_TEST_BACKUP_RESTORE.md).
+- Integration risk remains `UNVERIFIED` for all 1C application/outbound activity; product remains `NOT_IMPLEMENTED`, architecture `NOT_APPROVED`.
