@@ -34,4 +34,4 @@
 
 ## Безопасность тестового контура
 
-- [Safety baseline тестовой среды](DEV/docs/TEST_ENVIRONMENT_SAFETY.md): сведения владельца, ограничения между TEST/PRODUCTION и критерии допуска к будущим проверкам. Codex не открывал тестовую базу; readiness и восстановление не подтверждены.
+- [Safety baseline тестовой среды](DEV/docs/TEST_ENVIRONMENT_SAFETY.md): сведения владельца, ограничения между TEST/PRODUCTION и критерии допуска к будущим проверкам. Codex не запускал тестовую базу в 1С; file-level backup завершение не подтвердил, readiness и восстановление не подтверждены.

@@ -2,6 +2,12 @@
 
 Это журнал фактически выполненных задач, а не план будущих релизов. Исторические записи помечены ретроспективами и основаны на опубликованных отчётах.
 
+## 2026-11-16 — 008_RETRY_TEST_BACKUP_RESTORE — blocked during file copy
+
+- Точный TEST path preflight и начальный exclusive read-only lock-check прошли; далее разрешённая локальная file-copy операция завершилась ошибкой до инвентарной проверки.
+- Проверенный backup отсутствует (`FILE_LEVEL_BACKUP=FAIL` / completion `UNVERIFIED`); restore и post-copy validation `NOT_ATTEMPTED`. Возможные локальные partial artifacts оставлены нетронутыми; база и данные в Git не публиковались.
+- Подробности и документационная сверка: [report 008](../reports/008_RETRY_TEST_BACKUP_RESTORE.md). Архитектура `NOT_APPROVED`, продукт `NOT_IMPLEMENTED`.
+
 ## 2026-11-16 — 007_TEST_BACKUP_AND_RESTORE — blocked preflight
 
 - Локальный offline preflight точного TEST-кандидата остановился: `TEST_SESSION_NOT_CONFIRMED_CLOSED` при попытке эксклюзивного read-only доступа.

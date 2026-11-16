@@ -64,3 +64,9 @@
 
 - Статический preflight остановлен на эксклюзивной read-only проверке из-за `TEST_SESSION_NOT_CONFIRMED_CLOSED`; работу сеансов и процессов не исследовали.
 - Файловые копия и восстановление `NOT_ATTEMPTED`; `APPLICATION_RESTORE=NOT_ATTEMPTED`; `RESTORE_UNVERIFIED`. Архитектура `NOT_APPROVED`, продуктовая реализация `NOT_IMPLEMENTED`. См. [report 007](../reports/007_TEST_BACKUP_AND_RESTORE.md).
+
+## Task 008 — retry test backup and restore
+
+- Точный TEST path preflight и начальный exclusive read-only check прошли. Разрешённая локальная file-copy операция вернула ошибку до проверки инвентарной parity; backup `FAIL` / completion `UNVERIFIED`, restore `NOT_ATTEMPTED`.
+- Возможные частичные локальные артефакты не инспектировались, не изменялись и не удалялись. Post-copy check исходника/idle `NOT_ATTEMPTED`; см. [report 008](../reports/008_RETRY_TEST_BACKUP_RESTORE.md).
+- `APPLICATION_RESTORE=NOT_ATTEMPTED`; TEST permissions, `.epf`, integrations и production readiness `UNVERIFIED`; architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`.
