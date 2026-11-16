@@ -74,7 +74,7 @@ The unrelated Task 001 file remains unstaged and untouched. No TEST database or 
 
 ## Checks and publication
 
-The exact five-path allowlist and full staged diff were inspected; the staged whitespace check passed. The required `Index` publication scanner passed, and `core.hooksPath` is `DEV/hooks`. The `Outgoing` scanner will be run against the actual push refs before publishing, and the configured hooks will be allowed to run. Remote head and public report verification, plus commit-specific CI status, will be checked after the push. No future commit SHA is predeclared; CI will be reported as successful only for a completed run on the published SHA.
+The exact five-path allowlist and full staged diff were inspected; UTF-8, relative-link, and staged whitespace checks passed. The required `Index` scanner passed; `core.hooksPath` is `DEV/hooks`, and the commit hook passed. The `Outgoing` scanner passed for the fast-forward from the checked task baseline; the ordinary push and pre-push hook passed. GitHub readback confirmed `main` at the published Task 011 commit and the public report was retrievable. The Actions workflow for that published revision was `in_progress` at verification time, so CI is not claimed as passed. The final report revision will trigger its own commit-specific workflow; CI remains pending until that run completes.
 
 ## Blocker and next action
 
