@@ -76,3 +76,9 @@
 - Read-only metadata checks found the exact TEST source and standard database file present and stable across two metadata snapshots; the two exact Task 008 destination directories were absent. Metadata parity is `NOT_APPLICABLE`; current free space meets the two-copy-plus-reserve rule.
 - These observations do not establish source byte integrity after Task 008 or the historical error cause. `ROOT_CAUSE=UNDETERMINED`; `SOURCE_INTEGRITY_AFTER_008=UNVERIFIED`; no backup/restore or application recovery is validated. See [report 009](../reports/009_DIAGNOSE_TEST_BACKUP_FAILURE.md).
 - Status categories for product, architecture and readiness did not change: architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`, restore `UNVERIFIED`.
+
+## Task 010 — instrumented TEST backup and restore
+
+- Fresh P0 checks passed for the exact TEST boundary, metadata stability, exclusive read-only idle check, absent new target names and capacity. The overall preflight was `BLOCKED` because integration/exchange risk remains `UNVERIFIED`; policy does not allow assuming it away or inspecting prohibited settings/processes.
+- No source digests, destination directories, backup or restored copy were created. `LAST_COMPLETED_PHASE=NONE`; `FAILED_PHASE=P0_PREFLIGHT` (safety gate, no runtime exception); file-level backup/restore and final source validation remain `NOT_ATTEMPTED`. See [report 010](../reports/010_INSTRUMENTED_TEST_BACKUP_RESTORE.md).
+- Product, architecture and readiness categories did not change: architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`, integration risk `UNVERIFIED`, restore `UNVERIFIED`.

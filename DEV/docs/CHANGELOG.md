@@ -2,6 +2,12 @@
 
 Это журнал фактически выполненных задач, а не план будущих релизов. Исторические записи помечены ретроспективами и основаны на опубликованных отчётах.
 
+## 2026-11-16 — 010_INSTRUMENTED_TEST_BACKUP_RESTORE — blocked at P0
+
+- Свежий read-only preflight прошёл проверки точной TEST boundary, metadata stability, exclusive idle check, отсутствия новых target names и capacity.
+- P0 остановлен: риск интеграций/обменов остаётся `UNVERIFIED`; digest, backup и restore не запускались, новые каталоги не создавались.
+- Доказательства и ограничения: [report 010](../reports/010_INSTRUMENTED_TEST_BACKUP_RESTORE.md). File-level backup/restore `NOT_ATTEMPTED`; architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`.
+
 ## 2026-11-16 — 009_DIAGNOSE_TEST_BACKUP_FAILURE — bounded metadata diagnostic
 
 - Read-only metadata check found the exact TEST source and standard database file present and stable across two snapshots; both exact Task 008 destinations were absent. Metadata parity is `NOT_APPLICABLE`; current space meets the required threshold.
