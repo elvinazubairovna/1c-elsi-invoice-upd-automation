@@ -68,5 +68,11 @@
 ## Task 008 — retry test backup and restore
 
 - Точный TEST path preflight и начальный exclusive read-only check прошли. Разрешённая локальная file-copy операция вернула ошибку до проверки инвентарной parity; backup `FAIL` / completion `UNVERIFIED`, restore `NOT_ATTEMPTED`.
-- Возможные частичные локальные артефакты не инспектировались, не изменялись и не удалялись. Post-copy check исходника/idle `NOT_ATTEMPTED`; см. [report 008](../reports/008_RETRY_TEST_BACKUP_RESTORE.md).
+- Во время Task 008 возможные частичные локальные артефакты не инспектировались, не изменялись и не удалялись; немедленная post-copy проверка исходника/idle была `NOT_ATTEMPTED`. Task 009 позднее проверила только metadata двух точных target-каталогов и обнаружила их отсутствующими; см. [report 008](../reports/008_RETRY_TEST_BACKUP_RESTORE.md) и [report 009](../reports/009_DIAGNOSE_TEST_BACKUP_FAILURE.md).
 - `APPLICATION_RESTORE=NOT_ATTEMPTED`; TEST permissions, `.epf`, integrations и production readiness `UNVERIFIED`; architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`.
+
+## Task 009 — diagnose TEST backup failure
+
+- Read-only metadata checks found the exact TEST source and standard database file present and stable across two metadata snapshots; the two exact Task 008 destination directories were absent. Metadata parity is `NOT_APPLICABLE`; current free space meets the two-copy-plus-reserve rule.
+- These observations do not establish source byte integrity after Task 008 or the historical error cause. `ROOT_CAUSE=UNDETERMINED`; `SOURCE_INTEGRITY_AFTER_008=UNVERIFIED`; no backup/restore or application recovery is validated. See [report 009](../reports/009_DIAGNOSE_TEST_BACKUP_FAILURE.md).
+- Status categories for product, architecture and readiness did not change: architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`, restore `UNVERIFIED`.

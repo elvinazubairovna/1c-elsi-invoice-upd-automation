@@ -2,6 +2,12 @@
 
 Это журнал фактически выполненных задач, а не план будущих релизов. Исторические записи помечены ретроспективами и основаны на опубликованных отчётах.
 
+## 2026-11-16 — 009_DIAGNOSE_TEST_BACKUP_FAILURE — bounded metadata diagnostic
+
+- Read-only metadata check found the exact TEST source and standard database file present and stable across two snapshots; both exact Task 008 destinations were absent. Metadata parity is `NOT_APPLICABLE`; current space meets the required threshold.
+- Historical Task 008 error cause remains `UNDETERMINED`; source byte integrity after that attempt remains `UNVERIFIED`. No backup or restore was created or validated by Task 009.
+- Findings and limitations: [report 009](../reports/009_DIAGNOSE_TEST_BACKUP_FAILURE.md). Architecture remains `NOT_APPROVED`; product remains `NOT_IMPLEMENTED`.
+
 ## 2026-11-16 — 008_RETRY_TEST_BACKUP_RESTORE — blocked during file copy
 
 - Точный TEST path preflight и начальный exclusive read-only lock-check прошли; далее разрешённая локальная file-copy операция завершилась ошибкой до инвентарной проверки.
