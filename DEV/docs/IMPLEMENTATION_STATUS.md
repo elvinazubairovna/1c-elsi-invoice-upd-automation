@@ -88,3 +88,9 @@
 - The task-specific offline-only exception was applied; integrations remain `UNVERIFIED` and no 1C application operation was authorized. Fresh P0 boundary, source metadata/stability, exclusive idle, target absence and capacity checks passed. P1 computed source digests in memory.
 - P2 failed with `FAILURE_CATEGORY=UNCLASSIFIED`. The backup target status is `UNVERIFIED`; it was not inspected or cleaned. Restore target was not created; P3–P8 were not attempted. `FILE_LEVEL_BACKUP=FAIL`, `FILE_LEVEL_RESTORE=NOT_ATTEMPTED`, `SOURCE_FINAL=NOT_ATTEMPTED`; see [report 011](../reports/011_OFFLINE_TEST_BACKUP_RESTORE.md).
 - Integration risk remains `UNVERIFIED` for all 1C application/outbound activity; product remains `NOT_IMPLEMENTED`, architecture `NOT_APPROVED`.
+
+## Task 012 — diagnose TEST directory creation
+
+- Read-only exact-item checks confirmed `_BACKUP_011=ABSENT` at Task 012 time. This does not determine whether it existed briefly after Task 011; the historical Task 011 backup state remains `UNVERIFIED` and its `FILE_LEVEL_BACKUP=FAIL` is unchanged.
+- D0–D2 boundary and exact probe absence checks passed. The single authorized D3 attempt to create `_DIR_PROBE_012` failed with `ERROR_CATEGORY=UNCLASSIFIED`; the one permitted post-error metadata lookup found the probe `ABSENT`. No retry, cleanup, file access, backup, restore, 1C operation or production access occurred. `DIR_CREATE=FAIL`; file-level backup/restore and application restore are `NOT_ATTEMPTED` in Task 012. See [report 012](../reports/012_DIAGNOSE_TEST_DIRECTORY_CREATION.md).
+- No product, architecture or application-readiness status changed: architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`, integrations `UNVERIFIED`, restore `UNVERIFIED`.

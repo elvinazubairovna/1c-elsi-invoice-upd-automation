@@ -2,6 +2,12 @@
 
 Это журнал фактически выполненных задач, а не план будущих релизов. Исторические записи помечены ретроспективами и основаны на опубликованных отчётах.
 
+## 2026-11-17 — 012_DIAGNOSE_TEST_DIRECTORY_CREATION — partial, stopped after one attempt
+
+- Exact metadata lookup found `_BACKUP_011=ABSENT` at Task 012 time; this does not establish its historical state after Task 011.
+- D0–D2 passed. The one permitted empty-directory creation attempt failed with `UNCLASSIFIED`; the single allowed post-error metadata lookup found `_DIR_PROBE_012=ABSENT`. No retry, cleanup, backup, restore, or 1C operation was performed.
+- Evidence and limitations: [report 012](../reports/012_DIAGNOSE_TEST_DIRECTORY_CREATION.md). File-level backup remains failed/unverified; architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`.
+
 ## 2026-11-16 — 011_OFFLINE_TEST_BACKUP_RESTORE — stopped at P2
 
 - Узкое offline-only исключение применено; P0 проверки прошли, P1 baseline рассчитан в памяти. P2 завершился с `FAILURE_CATEGORY=UNCLASSIFIED`.
