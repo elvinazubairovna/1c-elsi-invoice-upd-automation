@@ -1,5 +1,11 @@
 # История изменений по задачам
 
+## 2026-11-17 — 018_DIAGNOSE_ISOLATION_READINESS_UNVERIFIED — static and synthetic diagnostics repair
+
+- Capability tool выдаёт фиксированные `RUN_GATE` и статусы отдельных чтений; все девять прежних строк сохранены, добавлены пять диагностических полей. Ошибки классифицируются структурно, без вывода исключений или host-derived текста.
+- AST/static анализ и synthetic-only проверки gate short-circuit, успешных и ошибочных query, смешанных/all-unknown значений и allowlisted отчёта прошли. Реальный host probe и повторный запуск владельцем не выполнялись.
+- Сообщённые владельцем Task 017 all-`UNVERIFIED` значения не интерпретированы как диагноз. `OUTBOUND_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`; архитектура `NOT_APPROVED`, продукт `NOT_IMPLEMENTED`. См. [report 018](../reports/018_DIAGNOSE_ISOLATION_READINESS_UNVERIFIED.md).
+
 ## 2026-11-17 — 017_RECORD_CLONE_AND_CHECK_ISOLATION_READINESS — owner-reported clone and unrun capability report
 
 - Зафиксирован сообщённый владельцем один результат Task 016 clone tool: `CLONE_016`, file-level parity и source-final `OWNER_REPORTED_PASS`. Это не независимое наблюдение Codex; clone является host-side и не доказанно изолированным. Исторический report 016 не изменялся.
