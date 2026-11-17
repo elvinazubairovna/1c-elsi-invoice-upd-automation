@@ -97,6 +97,11 @@
 
 ## Task 013 — operator folder write probe
 
-- Добавлен операторский PowerShell-скрипт с отдельным `-RunProbe`; в Task 013 он не запускался ни в каком режиме. AST parsing, статическая проверка единственного create-вызова и synthetic-only проверки классификатора прошли; см. [report 013](../reports/013_OPERATOR_FOLDER_WRITE_PROBE.md).
-- Инструмент имеет статус `CODED` / `STATIC_CHECK=PASS`; реальная операторская проверка `NOT_ATTEMPTED`. Права записи, пригодность среды и фактическое создание каталога не подтверждены. File-level backup/restore `UNVERIFIED`; application restore `NOT_ATTEMPTED`.
+- Добавлен операторский PowerShell-скрипт с отдельным `-RunProbe`; после его независимого аудита владелец сообщил об успешном создании одного пустого каталога (`OWNER_REPORTED_PASS`). Codex не проверял этот runtime результат; он не подтверждает backup, restore или права Codex. См. [report 013](../reports/013_OPERATOR_FOLDER_WRITE_PROBE.md).
 - Архитектура остаётся `NOT_APPROVED`, продуктовая функциональность `NOT_IMPLEMENTED`; production readiness не подтверждена.
+
+## Task 014 — operator offline TEST backup tool
+
+- Добавлен операторский PowerShell 7 tool `DEV/tools/Invoke-ELSI-TestBackupDrill.ps1` с явным `-RunDrill`; default mode задуман как фиксированное usage/status сообщение без TEST lookup. AST parsing, статический аудит и synthetic-only проверки помощников (parity, изменение данных, non-overwrite, reparse rejection, containment и категории ошибок) прошли; см. [report 014](../reports/014_OPERATOR_OFFLINE_TEST_BACKUP_TOOL.md).
+- Entry point не запускался, TEST filesystem не читалась и не изменялась; `CODEX_BACKUP_RUN=NOT_ATTEMPTED`, `OPERATOR_BACKUP_RUN=NOT_ATTEMPTED`. Tool `CODED` / `STATIC_CHECK=PASS` / `SYNTHETIC_TEST=PASS`, но не runtime-tested на TEST и не принят независимо.
+- File-level backup/restore остаются `UNVERIFIED`, application restore `NOT_ATTEMPTED`, integrations `UNVERIFIED`; архитектура `NOT_APPROVED`, продукт `NOT_IMPLEMENTED`.

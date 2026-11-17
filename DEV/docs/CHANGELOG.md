@@ -1,5 +1,11 @@
 # История изменений по задачам
 
+## 2026-11-17 — 014_OPERATOR_OFFLINE_TEST_BACKUP_TOOL — tool static and synthetic validation only
+
+- Добавлен операторский PowerShell 7 инструмент для offline file-level backup и независимой restore-copy parity проверки фиксированных TEST целей. AST, статические проверки и синтетические helper проверки прошли; entry point не запускался, TEST-файловая система не читалась и не изменялась.
+- Учтён только как `OWNER_REPORTED` более ранний успешный Task 013 empty-folder probe; он не доказывает backup/restore. File-level backup/restore остаются `UNVERIFIED`, application restore `NOT_ATTEMPTED`, integrations `UNVERIFIED`.
+- Факты, документационная сверка и ограничения: [report 014](../reports/014_OPERATOR_OFFLINE_TEST_BACKUP_TOOL.md).
+
 Это журнал фактически выполненных задач, а не план будущих релизов. Исторические записи помечены ретроспективами и основаны на опубликованных отчётах.
 
 ## 2026-11-17 — 013_OPERATOR_FOLDER_WRITE_PROBE — static validation only
