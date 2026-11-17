@@ -105,3 +105,9 @@
 - Добавлен операторский PowerShell 7 tool `DEV/tools/Invoke-ELSI-TestBackupDrill.ps1` с явным `-RunDrill`; default mode задуман как фиксированное usage/status сообщение без TEST lookup. AST parsing, статический аудит и synthetic-only проверки помощников (parity, изменение данных, non-overwrite, reparse rejection, containment и категории ошибок) прошли; см. [report 014](../reports/014_OPERATOR_OFFLINE_TEST_BACKUP_TOOL.md).
 - Entry point не запускался, TEST filesystem не читалась и не изменялась; `CODEX_BACKUP_RUN=NOT_ATTEMPTED`, `OPERATOR_BACKUP_RUN=NOT_ATTEMPTED`. Tool `CODED` / `STATIC_CHECK=PASS` / `SYNTHETIC_TEST=PASS`, но не runtime-tested на TEST и не принят независимо.
 - File-level backup/restore остаются `UNVERIFIED`, application restore `NOT_ATTEMPTED`, integrations `UNVERIFIED`; архитектура `NOT_APPROVED`, продукт `NOT_IMPLEMENTED`.
+
+## Task 015 — post-Task 014 owner-reported file drill and application plan
+
+- Владелец позднее сообщил итог P8 Task 014: `FILE_LEVEL_BACKUP=OWNER_REPORTED_PASS`, `FILE_LEVEL_RESTORE_COPY_PARITY=OWNER_REPORTED_PASS`, `SOURCE_FINAL=OWNER_REPORTED_PASS` в рамках того запуска. Это provenance-qualified output, не независимая проверка Codex; отчёт Task 014 сохранён как историческое состояние до operator run. См. [report 015](../reports/015_RECORD_BACKUP_AND_PLAN_APP_RESTORE.md).
+- `APPLICATION_RESTORE=NOT_ATTEMPTED`, `TEST_APP_READINESS=UNVERIFIED`, `OUTBOUND_INTEGRATIONS=UNVERIFIED`, `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`. Подготовлен только план будущей проверки на отдельной disposable clone: [TEST_APPLICATION_RESTORE_PLAN](TEST_APPLICATION_RESTORE_PLAN.md); никакой запуск не разрешён этим планом.
+- Текущие архитектура и продуктовые статусы не изменились: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`.

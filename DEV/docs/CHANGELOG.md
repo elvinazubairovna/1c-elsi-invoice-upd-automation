@@ -1,5 +1,11 @@
 # История изменений по задачам
 
+## 2026-11-17 — 015_RECORD_BACKUP_AND_PLAN_APP_RESTORE — owner-reported file drill and non-executing plan
+
+- Recorded the owner's later-reported successful Task 014 P8 file backup, restore-copy parity and source-final statuses as `OWNER_REPORTED_PASS`. Codex did not access or independently inspect TEST or the copies; Task 014's pre-run report remains historical evidence.
+- Added a Russian plan for a future application recovery smoke test on a separate disposable clone. It requires demonstrated clone-only outbound isolation and separate authorization; no 1C launch or TEST operation occurred in Task 015.
+- File-level evidence is not application recovery: `APPLICATION_RESTORE=NOT_ATTEMPTED`; integrations, full synthetic data status and application readiness remain `UNVERIFIED`. See [report 015](../reports/015_RECORD_BACKUP_AND_PLAN_APP_RESTORE.md) and [plan](TEST_APPLICATION_RESTORE_PLAN.md).
+
 ## 2026-11-17 — 014_OPERATOR_OFFLINE_TEST_BACKUP_TOOL — tool static and synthetic validation only
 
 - Добавлен операторский PowerShell 7 инструмент для offline file-level backup и независимой restore-copy parity проверки фиксированных TEST целей. AST, статические проверки и синтетические helper проверки прошли; entry point не запускался, TEST-файловая система не читалась и не изменялась.

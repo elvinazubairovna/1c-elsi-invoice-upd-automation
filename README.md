@@ -34,4 +34,5 @@
 
 ## Безопасность тестового контура
 
-- [Safety baseline тестовой среды](DEV/docs/TEST_ENVIRONMENT_SAFETY.md): сведения владельца, ограничения между TEST/PRODUCTION и критерии допуска к будущим проверкам. Codex не запускал тестовую базу в 1С; file-level backup завершение не подтвердил, readiness и восстановление не подтверждены.
+- [Safety baseline тестовой среды](DEV/docs/TEST_ENVIRONMENT_SAFETY.md): сведения владельца, ограничения между TEST/PRODUCTION и критерии допуска. Владелец сообщил `OWNER_REPORTED_PASS` для file-level backup/restore-copy parity; Codex копии независимо не проверял, а запуск/восстановление в 1С остаётся `NOT_ATTEMPTED`.
+- [План будущей проверки восстановления в 1С](DEV/docs/TEST_APPLICATION_RESTORE_PLAN.md): только план отдельной проверки на disposable clone после доказательства outbound isolation; он не разрешает запуск приложения.
