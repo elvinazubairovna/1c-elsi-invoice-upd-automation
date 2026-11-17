@@ -1,10 +1,16 @@
 # История изменений по задачам
 
-## 2026-11-17 — 016_PREPARE_DISPOSABLE_APP_CLONE_TOOL — operator clone tool prepared, not run
+## 2026-11-17 — 017_RECORD_CLONE_AND_CHECK_ISOLATION_READINESS — owner-reported clone and unrun capability report
+
+- Зафиксирован сообщённый владельцем один результат Task 016 clone tool: `CLONE_016`, file-level parity и source-final `OWNER_REPORTED_PASS`. Это не независимое наблюдение Codex; clone является host-side и не доказанно изолированным. Исторический report 016 не изменялся.
+- Добавлен `DEV/tools/Get-ELSI-IsolationReadiness.ps1` с ограниченными read-only OS capability queries и фиксированным allowlist вывода. В Task 017 проверены PowerShell AST и чистые mapping helpers на synthetic inputs; entry point/host probe не запускались.
+- Recovery plan описывает только кандидаты отдельной VM, Windows Sandbox и отдельной offline машины, prerequisites/unknowns, запрет host-wide/network shortcuts и кратчайший следующий шаг после независимого аудита. Приложение не запускалось; `APPLICATION_RESTORE=NOT_ATTEMPTED`, `OUTBOUND_ISOLATION=UNVERIFIED`. См. [report 017](../reports/017_RECORD_CLONE_AND_CHECK_ISOLATION_READINESS.md) и [plan](TEST_APPLICATION_RESTORE_PLAN.md).
+
+## Ретроспектива к 016_PREPARE_DISPOSABLE_APP_CLONE_TOOL — состояние на момент отчёта
 
 - Added a PowerShell 7 operator tool for a single fixed-path, offline, non-overwriting staging clone from the owner-reported restore copy to a new disposable target. It emits only fixed status fields and checks byte/tree parity plus source-final state.
-- PowerShell AST/static checks and synthetic-only fixture checks passed. Fixtures used invented bytes/names and were removed; the `-RunClone` entry point was not run against TEST. No clone was created and no 1C application was opened.
-- The tool awaits independent ChatGPT audit and a separate explicit owner instruction before any operator run. Application restore remains `NOT_ATTEMPTED`; outbound isolation and full data purity remain `UNVERIFIED`. See [report 016](../reports/016_PREPARE_DISPOSABLE_APP_CLONE_TOOL.md) and [plan](TEST_APPLICATION_RESTORE_PLAN.md).
+- По [опубликованному отчёту 016](../reports/016_PREPARE_DISPOSABLE_APP_CLONE_TOOL.md), на момент того отчёта `-RunClone` не запускался, `_APP_SMOKE_016` не был создан, а инструмент ожидал аудита ChatGPT. Это временное состояние Task 016; позже владелец сообщил об одном успешном operator-run, записанном отдельно в [report 017](../reports/017_RECORD_CLONE_AND_CHECK_ISOLATION_READINESS.md). Исторический report 016 не переписывается.
+- AST/static checks и synthetic-only fixtures Task 016 прошли; fixtures содержали вымышленные bytes/names и были удалены. Независимо от позднего file-level clone report, 1С не открывалась; `APPLICATION_RESTORE=NOT_ATTEMPTED`, outbound isolation и full data purity остаются `UNVERIFIED`.
 
 ## 2026-11-17 — 015_RECORD_BACKUP_AND_PLAN_APP_RESTORE — owner-reported file drill and non-executing plan
 
