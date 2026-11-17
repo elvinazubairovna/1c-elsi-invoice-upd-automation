@@ -71,7 +71,7 @@ No local paths, exception text, usernames, ACL subjects, source contents, hashes
 
 ## Checks and publication
 
-The exact five-file allowlist, complete staged diff, UTF-8, relative Markdown links, and staged whitespace check will be verified before publication. The required `Index` and `Outgoing` checks and ordinary hooks will be run using the exact refs being committed/pushed. GitHub remote-head and public-report verification, plus commit-specific Actions status, will be recorded after publication. No future commit SHA is predeclared.
+The exact five-file allowlist and complete staged diff were inspected; UTF-8, relative Markdown links, absolute-path scan, and `git diff --cached --check` passed. The required `Index` scanner and commit hook passed; `core.hooksPath` is `DEV/hooks`. The `Outgoing` scanner passed for the checked fast-forward refs, and the ordinary push and pre-push hook passed. GitHub readback verified the published report and `main` at the Task 012 commit. The Actions workflow for that commit was `in_progress` at readback; this report-only correction will have its own commit-specific run, so final CI remains pending until that run completes. No commit SHA is predeclared in this report.
 
 ## Blocker and next action
 
