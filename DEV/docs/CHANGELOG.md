@@ -1,5 +1,11 @@
 # История изменений по задачам
 
+## 2026-11-17 — 016_PREPARE_DISPOSABLE_APP_CLONE_TOOL — operator clone tool prepared, not run
+
+- Added a PowerShell 7 operator tool for a single fixed-path, offline, non-overwriting staging clone from the owner-reported restore copy to a new disposable target. It emits only fixed status fields and checks byte/tree parity plus source-final state.
+- PowerShell AST/static checks and synthetic-only fixture checks passed. Fixtures used invented bytes/names and were removed; the `-RunClone` entry point was not run against TEST. No clone was created and no 1C application was opened.
+- The tool awaits independent ChatGPT audit and a separate explicit owner instruction before any operator run. Application restore remains `NOT_ATTEMPTED`; outbound isolation and full data purity remain `UNVERIFIED`. See [report 016](../reports/016_PREPARE_DISPOSABLE_APP_CLONE_TOOL.md) and [plan](TEST_APPLICATION_RESTORE_PLAN.md).
+
 ## 2026-11-17 — 015_RECORD_BACKUP_AND_PLAN_APP_RESTORE — owner-reported file drill and non-executing plan
 
 - Recorded the owner's later-reported successful Task 014 P8 file backup, restore-copy parity and source-final statuses as `OWNER_REPORTED_PASS`. Codex did not access or independently inspect TEST or the copies; Task 014's pre-run report remains historical evidence.
