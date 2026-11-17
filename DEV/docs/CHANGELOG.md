@@ -2,6 +2,12 @@
 
 Это журнал фактически выполненных задач, а не план будущих релизов. Исторические записи помечены ретроспективами и основаны на опубликованных отчётах.
 
+## 2026-11-17 — 013_OPERATOR_FOLDER_WRITE_PROBE — static validation only
+
+- Добавлен операторский диагностический скрипт для ограниченной проверки создания одного пустого каталога в разрешённой TEST-иерархии. Он не запускался; `-RunProbe` не выполнялся.
+- AST parsing, проверка единственного create-вызова и синтетическая проверка классификатора исключений прошли. Никаких TEST-путей не проверяли и каталогов не создавали; права и backup/restore остаются неподтверждёнными.
+- Подробности, документационная сверка и ограничения: [report 013](../reports/013_OPERATOR_FOLDER_WRITE_PROBE.md).
+
 ## 2026-11-17 — 012_DIAGNOSE_TEST_DIRECTORY_CREATION — partial, stopped after one attempt
 
 - Exact metadata lookup found `_BACKUP_011=ABSENT` at Task 012 time; this does not establish its historical state after Task 011.

@@ -94,3 +94,9 @@
 - Read-only exact-item checks confirmed `_BACKUP_011=ABSENT` at Task 012 time. This does not determine whether it existed briefly after Task 011; the historical Task 011 backup state remains `UNVERIFIED` and its `FILE_LEVEL_BACKUP=FAIL` is unchanged.
 - D0–D2 boundary and exact probe absence checks passed. The single authorized D3 attempt to create `_DIR_PROBE_012` failed with `ERROR_CATEGORY=UNCLASSIFIED`; the one permitted post-error metadata lookup found the probe `ABSENT`. No retry, cleanup, file access, backup, restore, 1C operation or production access occurred. `DIR_CREATE=FAIL`; file-level backup/restore and application restore are `NOT_ATTEMPTED` in Task 012. See [report 012](../reports/012_DIAGNOSE_TEST_DIRECTORY_CREATION.md).
 - No product, architecture or application-readiness status changed: architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`, integrations `UNVERIFIED`, restore `UNVERIFIED`.
+
+## Task 013 — operator folder write probe
+
+- Добавлен операторский PowerShell-скрипт с отдельным `-RunProbe`; в Task 013 он не запускался ни в каком режиме. AST parsing, статическая проверка единственного create-вызова и synthetic-only проверки классификатора прошли; см. [report 013](../reports/013_OPERATOR_FOLDER_WRITE_PROBE.md).
+- Инструмент имеет статус `CODED` / `STATIC_CHECK=PASS`; реальная операторская проверка `NOT_ATTEMPTED`. Права записи, пригодность среды и фактическое создание каталога не подтверждены. File-level backup/restore `UNVERIFIED`; application restore `NOT_ATTEMPTED`.
+- Архитектура остаётся `NOT_APPROVED`, продуктовая функциональность `NOT_IMPLEMENTED`; production readiness не подтверждена.
