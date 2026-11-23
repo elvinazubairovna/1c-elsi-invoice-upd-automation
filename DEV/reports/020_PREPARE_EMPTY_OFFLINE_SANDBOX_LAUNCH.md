@@ -76,6 +76,8 @@ Task 020 не активировал Windows Sandbox/Hyper-V, не переза�
 
 ## Публикационные проверки
 
-Отчёт создан до коммита. В финальном проходе будут вручную проверены точный staged allowlist, полный diff, UTF-8, ссылки, приватные/секретные данные и `git diff --cached --check`. Обязательные `Index` и `Outgoing` запускаются непосредственно перед commit/push; штатные hooks не обходятся. На момент создания отчёта commit, push, remote readback и exact-SHA CI ещё `PENDING`; итог CI будет сообщён владельцу только по подтверждённым данным GitHub.
+Ручная проверка точного staged allowlist, diff, UTF-8, relative links, private-data review и `git diff --cached --check` прошла. `Test-Publication.ps1 -Mode Index` прошёл вручную непосредственно перед commit; штатный commit hook тоже прошёл Index. `Test-Publication.ps1 -Mode Outgoing` прошёл для outgoing update `main` с Task 020 implementation commit `1318488321ef132cfd030469d7537446f83d9c81`, и штатный pre-push hook прошёл тот же gate. Обычный fast-forward `git push origin main` завершился успешно. GitHub readback подтвердил этот commit как `main` и подтвердил опубликованные config, validator и report.
+
+GitHub combined status для точного implementation SHA был запрошен дважды, но connector вернул пустой список статусов; завершённый успешный CI run не найден. Поэтому `CI=UNVERIFIED`, не `PASS`. Report URL: https://github.com/elvinazubairovna/1c-elsi-invoice-upd-automation/blob/main/DEV/reports/020_PREPARE_EMPTY_OFFLINE_SANDBOX_LAUNCH.md. Это уточнение не содержит SHA будущего коммита, который включит его.
 
 `NEXT_ACTION=WAIT_FOR_CHATGPT_AUDIT`. Это задание не разрешает открывать конфигурацию, включать Windows Sandbox, импортировать файлы, устанавливать/лицензировать 1С либо начинать Task 021.
