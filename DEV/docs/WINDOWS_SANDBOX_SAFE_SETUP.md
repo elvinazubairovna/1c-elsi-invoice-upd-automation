@@ -1,12 +1,12 @@
 # Windows Sandbox: безопасная оценка и план подготовки
 
-> Это документ для оценки и будущего отдельного допуска. В Task 019 XML существовал только как Markdown sample. Task 020 добавил отдельный фиксированный `.wsb` файл и выполнил его статическую проверку; ни файл, ни Windows Sandbox не открывались и не запускались. Наличие файла не разрешает его открывать.
+> Это документ для оценки и отдельных допусков. Task 019 содержала XML только как Markdown sample; Task 020 добавила пустую конфигурацию без host mappings и статический валидатор. Позднее владелец сообщил, что в Task 022 вручную открыл именно эту пустую конфигурацию, увидел отдельное окно Sandbox и закрыл его. Это `OWNER_REPORTED`, не независимое runtime-подтверждение Codex; ни данный отчёт, ни его исход не разрешают новый запуск или импорт файлов.
 
 ## Что известно и что пока неизвестно
 
 Владелец сообщил после Task 018: `OS_EDITION_CLASS=PRO`, `VIRTUALIZATION_SUPPORT=SUPPORTED`, `RUN_GATE=NON_ELEVATED_PASS`, `EDITION_QUERY=PASS`, `VIRTUALIZATION_QUERY=PASS`; одновременно `WINDOWS_SANDBOX_FEATURE=UNVERIFIED`, `HYPERV_FEATURE=UNVERIFIED`, `SANDBOX_QUERY=QUERY_ERROR`, `HYPERV_QUERY=QUERY_ERROR`, `OUTBOUND_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `STATUS=PARTIAL_REPORT`. Это `OWNER_REPORTED`, а не результат проверки Codex. `QUERY_ERROR` не означает `DISABLED` или `NOT_AVAILABLE`.
 
-Затем владелец сообщил, что в окне **«Включение или отключение компонентов Windows»** строки Windows Sandbox и Hyper-V были видны, но не отмечены. Это только `OWNER_REPORTED` наблюдение двух unchecked checkbox в GUI. Оно не подтверждает работоспособность, совместимость, entitlement, установку/активацию либо effective isolation. В Task 019 никто не менял эти флажки или другие настройки. Hyper-V не следует включать по предположению только потому, что его отдельный флажок виден.
+На момент Tasks 019–021 владелец сообщал, что Windows Sandbox и Hyper-V видны, но не отмечены в GUI компонентов Windows; это историческое `OWNER_REPORTED` состояние. После Task 021 владелец сообщил, что включил только Windows Sandbox через GUI и перезапустил компьютер. В Task 022 после перезапуска checkbox Windows Sandbox был виден отмеченным. Это только `OWNER_REPORTED` UI evidence; Codex не проверял состояние host, политику, Hyper-V internals, entitlement или effective isolation. О Hyper-V после перезапуска отдельного утверждения нет. Не включать его по предположению.
 
 Официальная документация Microsoft указывает следующие общие prerequisites Windows Sandbox: Windows 10 version 1903+ или Windows 11; AMD64, а для Windows 11 version 22H2+ также Arm64; аппаратная virtualization; минимум 4 GB RAM (рекомендуется 8 GB), 1 GB свободного диска и два CPU cores. В общих сведениях Microsoft перечислены поддерживаемые редакции Pro, Enterprise, Pro Education/SE и Education; Windows Home не поддерживается. Эти требования не проверялись на компьютере владельца и не доказывают наличие права на использование Sandbox или 1С.
 
@@ -137,3 +137,47 @@ pwsh -NoProfile -File DEV/tools/Get-ELSI-SandboxHostPreflight.ps1
 - [Windows Sandbox overview](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview): временная природа Sandbox, поддерживаемые editions и общие границы/ограничения.
 
 Официальные документы описывают продукт в общем. Они не подтверждают состояние конкретного компьютера, эффективную изоляцию, доступность файлового ingress/egress, права владельца, лицензию/совместимость 1С или пригодность данной TEST-копии.
+
+## Task 022 — owner-reported empty guest outcome и следующий отдельный профиль
+
+Все наблюдения ниже сообщены владельцем 23 ноября 2026 года; Codex не запускал host preflight, Windows Sandbox или 1С и не проверял screenshot'ы/локальные файлы:
+
+- После аудита владелец запустил Task 021 preflight в обычной PowerShell 7: по сообщённому экрану `HOST_RUN_GATE=NON_ELEVATED_PASS`, `STATUS=READ_ONLY_REPORT`, категории версии ОС, архитектуры, RAM, диска и физических ядер были `PASS`. Это `OWNER_REPORTED_PASS`; ранее сообщённые `PRO` и поддержка virtualization остаются более ранними owner claims, preflight их не перепроверял.
+- Владелец через GUI отметил только компонент Windows Sandbox и перезапустил ноутбук; после перезапуска сообщил, что checkbox Sandbox отмечен. Это не подтверждает OS policy, внутреннее состояние Hyper-V или эффективную изоляцию.
+- Владелец локально запустил неизменённый Task 020 статический валидатор и сообщил `STATUS=PASS`, `ERROR_CATEGORY=NONE`. Это проверка XML-конфигурации, не runtime isolation.
+- Владелец вручную открыл `DEV/config/ELSI_EMPTY_OFFLINE_SANDBOX.wsb`: появилось отдельное окно Windows Sandbox. В него не переносились 1С, установщики, файлы, mapped folders или TEST-данные; Sandbox после пустого smoke был закрыт.
+- В госте экран **Settings → Network & Internet** показал текст «Соединение отсутствует». Это только `OWNER_REPORTED_UI_NO_CONNECTION`; packet/route/adapter/policy проверок не было. `GUEST_NETWORK_ISOLATION=RUNTIME_UNVERIFIED`, `OUTBOUND_ISOLATION=UNVERIFIED`. Доказательства экрана гостя недоступны.
+- В рамках этих действий `GUEST_LAUNCH=OWNER_REPORTED_EMPTY_SUCCESS_CLOSED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`; оригинальный host-side `_APP_SMOKE_016` не открывали и не меняли. `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED` сохраняется.
+
+### Три разных профиля и границы передачи
+
+1. **Пустая конфигурация Task 020:** опубликованный [`ELSI_EMPTY_OFFLINE_SANDBOX.wsb`](../config/ELSI_EMPTY_OFFLINE_SANDBOX.wsb) не содержит `MappedFolders`/`LogonCommand`; владелец сообщил об одном пустом запуске и закрытии. UI «Соединение отсутствует» не доказывает, что сеть технически недоступна.
+2. **Будущая синтетическая ingress-конфигурация Task 022:** [`New-ELSI-SyntheticSandboxIngress.ps1`](../tools/New-ELSI-SyntheticSandboxIngress.ps1) — только код. После независимого аудита его owner-run может создать новую локальную disposable папку с одним безвредным marker-файлом и отдельный `.wsb`, который отображает только эту папку гостю с `ReadOnly=true`; сеть, clipboard и периферийные перенаправления выключены, ProtectedClient включён. В Task 022 этот tool не запускался, папка и `.wsb` не создавались.
+3. **Установка 1С или импорт TEST/backup:** `NOT_APPROVED`. Не отображать в госте TEST, `_APP_SMOKE_016`, source/backup/restore-каталоги, документы, установщики или любые реальные данные. Read-only mapping всё равно раскрывает гостю содержимое выбранной host-папки; это иной профиль, чем пустой Sandbox, и не доказывает isolation.
+
+Даже при успешном статическом XML helper report означает только `NETWORKING=DISABLED_IN_CONFIG`, а не фактический запрет сетевых коммуникаций. Возможные Windows policy overrides и эффективное состояние гостя остаются непроверенными. Следующий простой шаг после отдельного аудита ChatGPT — владелец может запустить только подготовительный tool и вернуть его фиксированные статусы; **не открывать** созданный `.wsb` до нового отдельного аудита/явного допуска. Ни один статус Task 021/022 не разрешает запуск 1С или передачу существующей TEST-копии.
+
+### Развилка проверки правомерного и offline-маршрута 1С
+
+Это только критерии для отдельного решения; мы не исследовали установленную платформу, пользовательские аккаунты, ключи, PIN, лицензии, дистрибутивы или эту TEST-базу.
+
+1. Сначала определить у правообладателя/обслуживающего партнёра, существует ли законный offline-дистрибутив нужной платформы и совместим ли он с отдельным стендом. Сам факт наличия installer на host ничего не разрешает и не создаёт approved ingress.
+2. Для реального коммерческого учётного теста потребуются подходящая коммерческая основная поставка/клиентские права и подтверждение условий использования для отдельного компьютера/виртуальной среды. Официальный FAQ 1С говорит, что область основной поставки связана с локальной сетью её использования; лицензия разработчика предназначена для разработки/отладки, community-лицензия — для разработки, а учебные версии не предназначены для автоматизации процессов реального предприятия. Их нельзя выдавать за коммерческую лицензию на реальный бухгалтерский сценарий.
+3. До выбора ephemeral Sandbox выяснить для **конкретного** продукта, нужен ли portal/account/телефон, онлайн доступ или отдельная активация/восстановление. Страница 1С для developer/community вариантов требует регистрации с подтверждением мобильного телефона; официальный FAQ описывает email/phone получение программной лицензии для отдельных базовых поставок, но это нельзя обобщать на все коммерческие лицензии. Документация 1Ci предупреждает, что параметры VM могут меняться и вызывать повторное восстановление программной лицензии. Следовательно, офлайн-лицензирование ephemeral guest сейчас `UNVERIFIED`; никакие секреты не предоставлять Codex.
+4. Если допустимую офлайн установку, лицензию, активационный маршрут и совместимость нельзя подтвердить заранее, не использовать Sandbox для 1С. Отдельно оценить устойчивую offline VM или standalone lab computer с собственным лицензированием и изоляцией.
+
+Официальные источники 1С/1Ci: [ответы по лицензированию 1С:Предприятия 8](https://v8.1c.ru/priobretenie-i-vnedrenie/otvety-na-tipovye-voprosy-po-litsenzirovaniyu-1s-predpriyatiya-8/), [учебные версии](https://v8.1c.ru/podderzhka-i-obuchenie/uchebnye-versii/), [лицензия разработчика](https://v8.1c.ru/platforma/litsenziya-dlya-razrabotchikov/) и [лицензии в виртуальной среде](https://kb.1ci.com/1C_Enterprise_Platform/FAQ/Administration/Licenses/How_to_avoid_constant_software_license_restoration_in_virtual_environment/). Источники описывают общие условия и не решают применимость к конкретной установке/конфигурации.
+
+| Поле | Текущий evidence после Task 022 |
+|---|---|
+| `OWNER_PREFLIGHT` | `OWNER_REPORTED_PASS` |
+| `HOST_SANDBOX_FEATURE` | `OWNER_GUI_CHECKED_POST_REBOOT` |
+| `EMPTY_GUEST_LAUNCH` | `OWNER_REPORTED_SUCCESS_CLOSED` |
+| `GUEST_UI_NETWORK` | `OWNER_REPORTED_NO_CONNECTION` |
+| `GUEST_NETWORK_ISOLATION` / `OUTBOUND_ISOLATION` | `RUNTIME_UNVERIFIED` / `UNVERIFIED` |
+| `SYNTHETIC_INGRESS_TOOL` | `CODED_STATIC_TESTED_NOT_RUN` |
+| `SYNTHETIC_INGRESS_OWNER_RUN` | `NOT_ATTEMPTED` |
+| `OFFLINE_1C_INSTALL_LICENSE` | `UNVERIFIED` |
+| `APPLICATION_RESTORE` | `NOT_ATTEMPTED` |
+| `ARCHITECTURE` / `INVOICE_UPD_AUTOMATION` | `NOT_APPROVED` / `NOT_IMPLEMENTED` |
+| `PRODUCTION_ACCESS` | `NONE` |

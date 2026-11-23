@@ -14,9 +14,11 @@
 
 Task 021 добавляет read-only owner-run preflight для категориальной оценки версий/архитектуры Windows, RAM, свободного места системного тома и физических CPU cores. Его исходник прошёл только AST/static и синтетические проверки; ни Codex, ни владелец не запускали entry point в рамках этой задачи. После независимого аудита владелец может однократно запустить его в обычной PowerShell 7 сессии и сообщить только фиксированные категории. Этот отчёт не активирует компоненты и не доказывает effective guest isolation, outbound controls или готовность открыть 1С. См. [preflight source](../tools/Get-ELSI-SandboxHostPreflight.ps1) и [report 021](../reports/021_PREPARE_SANDBOX_HOST_PREFLIGHT.md).
 
+В Task 022 владелец сообщил, что позже выполнил preflight (`NON_ELEVATED_PASS`, `READ_ONLY_REPORT`, категории OS/архитектуры/RAM/диска/ядер `PASS`), включил только Windows Sandbox через GUI с перезагрузкой, локально получил `PASS` от неизменённого Task 020 валидатора, открыл пустой `.wsb` и закрыл guest. В Settings → Network & Internet отображалось «Соединение отсутствует». Это только owner-reported UI evidence: effective network isolation и outbound isolation остаются `UNVERIFIED`. Codex не проверял host или снимки экрана. Task 022 также добавила [synthetic ingress preparation tool](../tools/New-ELSI-SyntheticSandboxIngress.ps1), прошедший только статическую и in-memory синтетическую проверку; сам tool, новая mapping-конфигурация и Sandbox не запускались. Новый профиль делится только фиксированным synthetic marker через read-only mapping; его нельзя смешивать с пустым no-share профилем или трактовать как разрешение на передачу TEST/backup/installer/1С. См. [report 022](../reports/022_RECORD_SANDBOX_SMOKE_AND_PREPARE_SYNTHETIC_INGRESS.md).
+
 Владелец сообщил о завершении Task 014 операторским запуском: file-level backup, restore-copy parity и source-final проверки завершились `PASS` в одном запуске. Это `OWNER_REPORTED_PASS` по предоставленным маркерам; Codex не осматривал TEST, исходную базу или созданные копии. Такой результат показывает сообщённую файловую согласованность копий, но не показывает, что 1С сможет открыть копию.
 
-Текущие статусы будущего GUI smoke test:
+Текущие статусы будущего GUI smoke test (отдельная проверка app restore не начиналась):
 
 | Проверка | Статус |
 |---|---|

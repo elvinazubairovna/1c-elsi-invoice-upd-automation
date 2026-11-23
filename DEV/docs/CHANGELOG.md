@@ -1,6 +1,12 @@
 # История изменений по задачам
 
-## 2026-11-23 — 021_PREPARE_SANDBOX_HOST_PREFLIGHT — static/synthetic owner preflight tool
+## 2026-11-23 — 022_RECORD_SANDBOX_SMOKE_AND_PREPARE_SYNTHETIC_INGRESS
+
+- Зафиксированы как owner-reported результаты preflight, GUI-включения Windows Sandbox и закрытого пустого guest; UI «Соединение отсутствует» не доказывает runtime isolation.
+- Добавлен preparation-only synthetic ingress tool; AST/static review и 20 in-memory синтетических утверждений прошли. Entry point, staging writes, mapping `.wsb`, Sandbox, 1С и базы не запускались/не открывались.
+- Документация различает no-share пустой профиль и отдельный synthetic marker read-only mapping; TEST/backup/installer/1С остаются не разрешены. `GUEST_NETWORK_ISOLATION=UNVERIFIED`, app restore `NOT_ATTEMPTED`, architecture `NOT_APPROVED`, product `NOT_IMPLEMENTED`, production access `NONE`. См. [guide](WINDOWS_SANDBOX_SAFE_SETUP.md), [report](../reports/022_RECORD_SANDBOX_SMOKE_AND_PREPARE_SYNTHETIC_INGRESS.md).
+
+## 2026-11-23 — 021_PREPARE_SANDBOX_HOST_PREFLIGHT — retrospective
 
 - Добавлен no-parameter PowerShell 7 host-preflight tool для узких read-only категорий OS eligibility, архитектуры, RAM, системного диска и физических CPU cores. Результаты по Optional Features и virtualization не перечитываются; сообщённые владельцем значения остаются `NOT_REVERIFIED`.
 - AST/static review и синтетические in-memory проверки pure helpers прошли; Codex entry point/host APIs и owner run `NOT_ATTEMPTED`. Tool можно рассматривать для одного owner-run только после независимого аудита ChatGPT. Активация Windows Sandbox, запуск `.wsb`/guest и 1С не выполнялись.
