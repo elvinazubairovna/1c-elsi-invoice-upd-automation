@@ -131,3 +131,9 @@
 - Исправлен capability report: фиксированные run-gate и per-query категории различают безопасный пропуск запроса и ошибку чтения; добавлены side-effect-free классификаторы с injectable callbacks. Подтверждены PowerShell AST и synthetic-only матрица; entry point и host APIs не запускались. См. [report 018](../reports/018_DIAGNOSE_ISOLATION_READINESS_UNVERIFIED.md).
 - Входные значения владельца из Task 017 зафиксированы как `OWNER_REPORTED_ALL_UNVERIFIED`; повторный запуск владельцем в Task 018 не выполнялся и ожидает независимого аудита ChatGPT. Поэтому readiness не повышена: `OUTBOUND_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`.
 - Категории не изменились: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`, `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`.
+
+## Task 019 — Sandbox offline feasibility and config sample
+
+- Добавлен только плановый русский guide с Microsoft-documented, locked-down `.wsb` XML sample в Markdown. XML статически проверяется; файл `.wsb` не создавался. Guide описывает owner-reported evidence, prerequisites, no-go статусы, отсутствие ingress path и необходимость отдельного допуска до любой активации/guest/app test. См. [Windows Sandbox safe setup](WINDOWS_SANDBOX_SAFE_SETUP.md) и [report 019](../reports/019_SANDBOX_OFFLINE_FEASIBILITY_AND_CONFIG.md).
+- Owner-reported edition/virtualization and GUI checkbox observations не являются независимой проверкой Codex. `HOST_FEATURE_ACTIVATION=NOT_ATTEMPTED`, `GUEST_CONFIG=DESIGN_ONLY`, `GUEST_NETWORK_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`.
+- Category status did not change: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`, `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`. No Windows component, Sandbox, VM or 1C was enabled or launched.

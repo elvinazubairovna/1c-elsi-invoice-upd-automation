@@ -1,5 +1,11 @@
 # История изменений по задачам
 
+## 2026-11-23 — 019_SANDBOX_OFFLINE_FEASIBILITY_AND_CONFIG — documentation and static XML example
+
+- Создан русский guide с публичными ссылками Microsoft Learn и locked-down `.wsb` XML sample только в Markdown. Реальный `.wsb` файл не создавался и не запускался.
+- Owner-reported capability statuses и unchecked Optional Features GUI зафиксированы с provenance; неизвестность query/feature state не трактуется как отключение или работоспособность. Документационный статический XML parse прошёл; Windows feature activation, Sandbox/1С запуск и host checks не выполнялись.
+- Ingress/installer/license/clone transport и effective guest isolation остаются неразрешёнными и требуют отдельных gates. `OUTBOUND_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`; архитектура `NOT_APPROVED`, продукт `NOT_IMPLEMENTED`. См. [guide](WINDOWS_SANDBOX_SAFE_SETUP.md) и [report 019](../reports/019_SANDBOX_OFFLINE_FEASIBILITY_AND_CONFIG.md).
+
 ## 2026-11-17 — 018_DIAGNOSE_ISOLATION_READINESS_UNVERIFIED — static and synthetic diagnostics repair
 
 - Capability tool выдаёт фиксированные `RUN_GATE` и статусы отдельных чтений; все девять прежних строк сохранены, добавлены пять диагностических полей. Ошибки классифицируются структурно, без вывода исключений или host-derived текста.
