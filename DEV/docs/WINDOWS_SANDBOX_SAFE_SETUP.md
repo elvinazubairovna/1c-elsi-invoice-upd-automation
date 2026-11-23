@@ -103,6 +103,31 @@ Task 020 добавил в репозиторий потенциально за�
 
 Не включайте Windows Sandbox по этому документу, не открывайте `.wsb` и не запускайте 1С. Для будущего guest import или app check требуется отдельное задание, review и operator approval.
 
+## Предварительная оценка требований host — после аудита скрипта
+
+Task 021 подготовила `DEV/tools/Get-ELSI-SandboxHostPreflight.ps1` для однократного запуска владельцем в обычном PowerShell 7 **только после независимого аудита точного исходника ChatGPT**. Команда после такого аудита:
+
+```powershell
+pwsh -NoProfile -File DEV/tools/Get-ELSI-SandboxHostPreflight.ps1
+```
+
+Скрипт только классифицирует совместимость Windows, архитектуру, RAM, число физических ядер и свободное место на системном томе. Он не перепроверяет Windows Sandbox/Hyper-V checkbox и не вызывает ненадёжный feature query; статусы `PRO`, `SUPPORTED`, `OWNER_GUI_UNCHECKED` остаются сообщёнными владельцем и помечаются `NOT_REVERIFIED`. Скрипт не запрашивает повышение прав и отказывается продолжать проверки при elevated, non-Windows или неизвестном запуске. В output нет точных размеров, версии/build, путей или иных идентификаторов.
+
+Официальные общие минимумы Microsoft: Windows 10 build 18362+ или Windows 11; x64, либо ARM64 для Windows 11 22H2+; RAM 4 GB; свободное место 1 GB; два CPU cores; включённая аппаратная virtualization. 8 GB RAM указаны Microsoft как рекомендация. Для оценки запаса места Task 021 использует 5 GB как консервативный практический ориентир, а не как минимум Microsoft. `READ_ONLY_REPORT` означает только, что скрипт получил категории для всех полей; отдельное `FAIL` в любом минимальном поле — стоп-сигнал. Даже полный report без FAIL не подтверждает effective guest isolation или готовность 1С и не даёт разрешения включать Windows Sandbox. При FAIL, `PARTIAL_REPORT`, `UNVERIFIED` или `BLOCKED_BY_RUN_GATE` остановиться и запросить решение; не менять настройки host.
+
+| Поле | Статус Task 021 |
+|---|---|
+| `HOST_PREFLIGHT_TOOL` | `CODED_STATIC_TESTED_NOT_RUN` |
+| `CODEX_HOST_PREFLIGHT` | `NOT_ATTEMPTED` |
+| `OWNER_HOST_PREFLIGHT` | `NOT_ATTEMPTED` |
+| `HOST_FEATURE_ACTIVATION` | `NOT_ATTEMPTED` |
+| `GUEST_LAUNCH` | `NOT_ATTEMPTED` |
+| `GUEST_NETWORK_ISOLATION` | `UNVERIFIED` |
+| `APPLICATION_RESTORE` | `NOT_ATTEMPTED` |
+| `PRODUCTION_ACCESS` | `NONE` |
+
+Не публикуйте полный экран, точные ресурсы или host identifiers. После отдельного аудита можно вернуть только фиксированные строки результата, без свободного текста.
+
 ## Официальные источники Microsoft
 
 Проверены публичные Microsoft Learn страницы (на страницах указано обновление `2026-03-29`):

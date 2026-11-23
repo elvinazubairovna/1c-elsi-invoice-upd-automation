@@ -1,6 +1,12 @@
 # История изменений по задачам
 
-## 2026-11-23 — 020_PREPARE_EMPTY_OFFLINE_SANDBOX_LAUNCH — fixed config and static validation
+## 2026-11-23 — 021_PREPARE_SANDBOX_HOST_PREFLIGHT — static/synthetic owner preflight tool
+
+- Добавлен no-parameter PowerShell 7 host-preflight tool для узких read-only категорий OS eligibility, архитектуры, RAM, системного диска и физических CPU cores. Результаты по Optional Features и virtualization не перечитываются; сообщённые владельцем значения остаются `NOT_REVERIFIED`.
+- AST/static review и синтетические in-memory проверки pure helpers прошли; Codex entry point/host APIs и owner run `NOT_ATTEMPTED`. Tool можно рассматривать для одного owner-run только после независимого аудита ChatGPT. Активация Windows Sandbox, запуск `.wsb`/guest и 1С не выполнялись.
+- `HOST_FEATURE_ACTIVATION=NOT_ATTEMPTED`, `GUEST_NETWORK_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`; product/architecture status без изменения. См. [guide](WINDOWS_SANDBOX_SAFE_SETUP.md) и [report 021](../reports/021_PREPARE_SANDBOX_HOST_PREFLIGHT.md).
+
+## 2026-11-23 — 020_PREPARE_EMPTY_OFFLINE_SANDBOX_LAUNCH — retrospective
 
 - Добавлены фиксированная семиопционная конфигурация `DEV/config/ELSI_EMPTY_OFFLINE_SANDBOX.wsb` и PowerShell 7 read-only валидатор точного repository config. AST и bounded synthetic negative XML cases прошли; `.wsb` не запускался.
 - Runbook уточнён: файл потенциально запускаемый, но не одобрен для открытия; описаны отдельные gates preflight, activation, пустого guest smoke и будущего 1С install/license. Windows feature activation, reboot, guest, 1С и TEST access не выполнялись.

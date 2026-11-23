@@ -138,8 +138,15 @@
 - Owner-reported edition/virtualization and GUI checkbox observations не являются независимой проверкой Codex. `HOST_FEATURE_ACTIVATION=NOT_ATTEMPTED`, `GUEST_CONFIG=DESIGN_ONLY`, `GUEST_NETWORK_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`.
 - Category status did not change: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`, `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`. No Windows component, Sandbox, VM or 1C was enabled or launched.
 
-## Task 020 — fixed empty offline Sandbox configuration
+## Task 020 — fixed empty offline Sandbox configuration (retrospective)
 
 - Added the exact seven-option `DEV/config/ELSI_EMPTY_OFFLINE_SANDBOX.wsb` and read-only `DEV/tools/Test-ELSI-EmptySandboxConfig.ps1`. The static validator reads only that repository file; PowerShell AST and in-memory negative XML cases are checked separately. `WSB_CONFIG=STATIC_VALIDATED` is configuration evidence only.
+- Report 020 recorded Actions as `UNVERIFIED` when it was written. During Task 021, the supplied exact-SHA run reference was checked through GitHub and its `publication-security` job was `completed/success` (run [45170321107](https://github.com/elvinazubairovna/1c-elsi-invoice-upd-automation/actions/runs/45170321107)); this is retrospective CI evidence for the Task 020 commit, not runtime evidence.
 - Windows features, the `.wsb`, a guest, 1C and TEST data were not opened or launched. `HOST_FEATURE_ACTIVATION=NOT_ATTEMPTED`, `GUEST_LAUNCH=NOT_ATTEMPTED`, `GUEST_NETWORK_ISOLATION=UNVERIFIED`, `1C_OFFLINE_INSTALL_LICENSE=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`. No approved installer/data ingress path exists.
 - Product/architecture categories did not change: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`; `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`. See [Sandbox guide](WINDOWS_SANDBOX_SAFE_SETUP.md) and [report 020](../reports/020_PREPARE_EMPTY_OFFLINE_SANDBOX_LAUNCH.md). This does not authorize opening the launchable `.wsb`.
+
+## Task 021 — Sandbox host preflight tool
+
+- Added `DEV/tools/Get-ELSI-SandboxHostPreflight.ps1`, a no-parameter PowerShell 7 read-only tool. Its owner-run scope is limited to a non-elevated/platform gate, OS version/architecture, total RAM, physical core count, and free space on the Windows system volume. Output is restricted to the fixed categories in the task; host features and virtualization remain `NOT_REVERIFIED` owner evidence.
+- AST/static inspection and in-memory tests of extracted pure classification/decision helpers passed. No host query, entry point, feature check/activation, `.wsb`, guest, TEST or 1C was run by Codex; owner preflight remains `NOT_ATTEMPTED`. An owner run is only appropriate after independent ChatGPT audit.
+- `HOST_FEATURE_ACTIVATION=NOT_ATTEMPTED`, `GUEST_LAUNCH=NOT_ATTEMPTED`, `GUEST_NETWORK_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`. Architecture/product categories did not change: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`; `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`. See [guide](WINDOWS_SANDBOX_SAFE_SETUP.md) and [report 021](../reports/021_PREPARE_SANDBOX_HOST_PREFLIGHT.md).
