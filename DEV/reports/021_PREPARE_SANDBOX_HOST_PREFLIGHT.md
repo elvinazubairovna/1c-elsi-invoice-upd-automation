@@ -93,6 +93,8 @@ Task → read-only source → AST/pure synthetic checks → canonical docs → r
 
 ## Публикация
 
-Отчёт создан до commit. Перед публикацией будут проверены точные staged paths, весь diff, UTF-8, ссылки, приватные данные, `git diff --cached --check`; затем вручную запускаются Index/Outgoing publication checks с неизменёнными hooks. Final remote SHA, GitHub readback и exact-SHA Actions будут сообщены после push. `CI=PASS` будет указан только при найденном completed/success workflow для exact commit; отсутствие combined status само по себе не считается отсутствием Actions run.
+Изменения закоммичены локально после проверки точного allowlist, staged diff, UTF-8/ссылок и `git diff --cached --check`. Ручные `Index` и `Outgoing` scanner прошли; `core.hooksPath=DEV/hooks`, commit hooks прошли. Локальный push не завершился: команда ожидания операции истекла, а повторный `git ls-remote origin refs/heads/main` завершился DNS failure. Авторизованный GitHub API readback подтвердил, что `main` пока остаётся на базовом SHA `bb7ae3ea85bd0830d7107e4c3ba2617f53cd53e0`. Поэтому push и GitHub report URL заблокированы локальным DNS; изменения сохранены локально, никаких альтернативных записей в GitHub API не делалось.
+
+Локальный implementation commit: `17249528934989217f29a6c5fc75fd010f90fa70`. Exact-SHA Actions run для него не найден (`total_count=0`), и этот SHA пока не опубликован. CI для Task 021 остаётся `PENDING`; успешный run `45170321107` относится только к базовому Task 020. Отсутствие combined status не трактуется как отсутствие Actions.
 
 `NEXT_ACTION=WAIT_FOR_CHATGPT_AUDIT`. Не запускать новый инструмент, не активировать feature, не открывать `.wsb`, не запускать Sandbox/1С и не начинать Task 022.
