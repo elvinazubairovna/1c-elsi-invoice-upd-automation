@@ -1,6 +1,12 @@
 # История изменений по задачам
 
-## 2026-11-23 — 019_SANDBOX_OFFLINE_FEASIBILITY_AND_CONFIG — documentation and static XML example
+## 2026-11-23 — 020_PREPARE_EMPTY_OFFLINE_SANDBOX_LAUNCH — fixed config and static validation
+
+- Добавлены фиксированная семиопционная конфигурация `DEV/config/ELSI_EMPTY_OFFLINE_SANDBOX.wsb` и PowerShell 7 read-only валидатор точного repository config. AST и bounded synthetic negative XML cases прошли; `.wsb` не запускался.
+- Runbook уточнён: файл потенциально запускаемый, но не одобрен для открытия; описаны отдельные gates preflight, activation, пустого guest smoke и будущего 1С install/license. Windows feature activation, reboot, guest, 1С и TEST access не выполнялись.
+- `WSB_CONFIG=STATIC_VALIDATED`; effective guest isolation и offline install/licensing `UNVERIFIED`, feature activation/guest launch/application restore `NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`. Архитектура остаётся `NOT_APPROVED`, автоматизация счетов/УПД `NOT_IMPLEMENTED`. См. [guide](WINDOWS_SANDBOX_SAFE_SETUP.md) и [report 020](../reports/020_PREPARE_EMPTY_OFFLINE_SANDBOX_LAUNCH.md).
+
+## 2026-11-23 — 019_SANDBOX_OFFLINE_FEASIBILITY_AND_CONFIG — ретроспектива
 
 - Создан русский guide с публичными ссылками Microsoft Learn и locked-down `.wsb` XML sample только в Markdown. Реальный `.wsb` файл не создавался и не запускался.
 - Owner-reported capability statuses и unchecked Optional Features GUI зафиксированы с provenance; неизвестность query/feature state не трактуется как отключение или работоспособность. Документационный статический XML parse прошёл; Windows feature activation, Sandbox/1С запуск и host checks не выполнялись.

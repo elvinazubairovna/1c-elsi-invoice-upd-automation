@@ -132,8 +132,14 @@
 - Входные значения владельца из Task 017 зафиксированы как `OWNER_REPORTED_ALL_UNVERIFIED`; повторный запуск владельцем в Task 018 не выполнялся и ожидает независимого аудита ChatGPT. Поэтому readiness не повышена: `OUTBOUND_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`.
 - Категории не изменились: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`, `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`.
 
-## Task 019 — Sandbox offline feasibility and config sample
+## Task 019 — Sandbox offline feasibility and config sample (retrospective)
 
 - Добавлен только плановый русский guide с Microsoft-documented, locked-down `.wsb` XML sample в Markdown. XML статически проверяется; файл `.wsb` не создавался. Guide описывает owner-reported evidence, prerequisites, no-go статусы, отсутствие ingress path и необходимость отдельного допуска до любой активации/guest/app test. См. [Windows Sandbox safe setup](WINDOWS_SANDBOX_SAFE_SETUP.md) и [report 019](../reports/019_SANDBOX_OFFLINE_FEASIBILITY_AND_CONFIG.md).
 - Owner-reported edition/virtualization and GUI checkbox observations не являются независимой проверкой Codex. `HOST_FEATURE_ACTIVATION=NOT_ATTEMPTED`, `GUEST_CONFIG=DESIGN_ONLY`, `GUEST_NETWORK_ISOLATION=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`.
 - Category status did not change: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`, `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`. No Windows component, Sandbox, VM or 1C was enabled or launched.
+
+## Task 020 — fixed empty offline Sandbox configuration
+
+- Added the exact seven-option `DEV/config/ELSI_EMPTY_OFFLINE_SANDBOX.wsb` and read-only `DEV/tools/Test-ELSI-EmptySandboxConfig.ps1`. The static validator reads only that repository file; PowerShell AST and in-memory negative XML cases are checked separately. `WSB_CONFIG=STATIC_VALIDATED` is configuration evidence only.
+- Windows features, the `.wsb`, a guest, 1C and TEST data were not opened or launched. `HOST_FEATURE_ACTIVATION=NOT_ATTEMPTED`, `GUEST_LAUNCH=NOT_ATTEMPTED`, `GUEST_NETWORK_ISOLATION=UNVERIFIED`, `1C_OFFLINE_INSTALL_LICENSE=UNVERIFIED`, `APPLICATION_RESTORE=NOT_ATTEMPTED`, `PRODUCTION_ACCESS=NONE`. No approved installer/data ingress path exists.
+- Product/architecture categories did not change: `ARCHITECTURE=NOT_APPROVED`, `INVOICE_UPD_AUTOMATION=NOT_IMPLEMENTED`; `TEST_DATA_FULLY_SYNTHETIC=UNVERIFIED`. See [Sandbox guide](WINDOWS_SANDBOX_SAFE_SETUP.md) and [report 020](../reports/020_PREPARE_EMPTY_OFFLINE_SANDBOX_LAUNCH.md). This does not authorize opening the launchable `.wsb`.
